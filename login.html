@@ -25,7 +25,6 @@
         --white: #ffffff;
         --text: #1a1a2e;
         --gray: #8a8faa;
-        --naver: #03c75a;
         --kakao: #fee500;
         --kakao-text: #191919;
       }
@@ -42,7 +41,6 @@
         overflow: hidden;
       }
 
-      /* 배경 장식 원 */
       .bg-circle {
         position: absolute;
         border-radius: 50%;
@@ -71,7 +69,6 @@
         right: -100px;
       }
 
-      /* 카드 */
       .login-card {
         background: var(--white);
         border-radius: 32px;
@@ -86,7 +83,6 @@
         animation: fadeUp 0.6s ease both;
       }
 
-      /* 로고 */
       .login-logo {
         display: flex;
         flex-direction: column;
@@ -117,7 +113,6 @@
         font-weight: 500;
       }
 
-      /* 구분선 */
       .divider {
         display: flex;
         align-items: center;
@@ -135,11 +130,10 @@
         font-size: 0.78rem;
         color: var(--gray);
         font-weight: 500;
-        white-space: nowrap;
       }
 
-      /* 소셜 로그인 버튼 */
-      .social-btn {
+      /* 카카오 로그인 버튼 */
+      .btn-kakao {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -148,61 +142,25 @@
         padding: 15px 20px;
         border-radius: 14px;
         border: none;
+        background: var(--kakao);
+        color: var(--kakao-text);
         font-size: 0.97rem;
         font-weight: 700;
         font-family: "Noto Sans KR", sans-serif;
         cursor: pointer;
+        box-shadow: 0 4px 16px rgba(254, 229, 0, 0.35);
         transition:
           transform 0.18s,
-          box-shadow 0.18s,
-          filter 0.18s;
-        text-decoration: none;
-        margin-bottom: 12px;
+          box-shadow 0.18s;
       }
-      .social-btn:last-child {
-        margin-bottom: 0;
-      }
-      .social-btn:hover {
+      .btn-kakao:hover {
         transform: translateY(-2px);
-        filter: brightness(0.95);
+        box-shadow: 0 8px 28px rgba(254, 229, 0, 0.5);
       }
-      .social-btn:active {
+      .btn-kakao:active {
         transform: translateY(0);
       }
 
-      /* 카카오 */
-      .btn-kakao {
-        background: var(--kakao);
-        color: var(--kakao-text);
-        box-shadow: 0 4px 16px rgba(254, 229, 0, 0.35);
-      }
-      .btn-kakao:hover {
-        box-shadow: 0 8px 28px rgba(254, 229, 0, 0.5);
-      }
-
-      /* 소셜 아이콘 */
-      .social-icon {
-        width: 24px;
-        height: 24px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        font-weight: 900;
-        flex-shrink: 0;
-      }
-      .naver-icon {
-        background: white;
-        color: var(--naver);
-        font-size: 0.85rem;
-        font-style: italic;
-      }
-      .kakao-icon {
-        font-size: 1.1rem;
-      }
-
-      /* 하단 안내 */
       .login-footer {
         margin-top: 28px;
         text-align: center;
@@ -219,7 +177,6 @@
         text-decoration: underline;
       }
 
-      /* 홈으로 돌아가기 */
       .back-home {
         display: flex;
         align-items: center;
@@ -253,50 +210,61 @@
     <div class="bg-circle c2"></div>
 
     <div class="login-card">
-      <!-- 로고 -->
       <div class="login-logo">
         <div class="logo-icon-wrap">🐾</div>
         <h1>토닥</h1>
         <p>반려동물 병원 예약 서비스</p>
       </div>
 
-      <!-- 소셜 로그인 -->
       <div class="divider"><span>간편 로그인</span></div>
 
-      <!-- 카카오 로그인 버튼 -->
-      <a href="#kakao-login" class="social-btn btn-kakao" id="kakaoLoginBtn">
-        <div class="social-icon kakao-icon">💬</div>
+      <!-- =============================================
+           카카오 로그인 버튼
+           - Kakao.Auth.authorize() 호출
+           - 카카오 인증 후 callback.html?code=XXX 로 리다이렉트
+           - SDK v2에서 Kakao.Auth.login()은 삭제됨 → authorize() 사용
+      ============================================= -->
+      <button class="btn-kakao" id="kakaoLoginBtn">
+        <span>💬</span>
         카카오로 로그인
-      </a>
+      </button>
 
-      <!-- 하단 안내 -->
       <div class="login-footer">
         로그인 시 토닥의 <a href="#">이용약관</a> 및
         <a href="#">개인정보처리방침</a>에<br />동의하는 것으로 간주합니다.
       </div>
 
-      <!-- 홈으로 -->
-      <a href="index.html" class="back-home"> ← 홈으로 돌아가기 </a>
+      <a href="index.html" class="back-home">← 홈으로 돌아가기</a>
     </div>
+
+    <!-- 카카오 JavaScript SDK v2 -->
     <script
       src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
       integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
       crossorigin="anonymous"
     ></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <script>
-      // 카카오 SDK 초기화 - JavaScript 키를 여기에 입력!
-      Kakao.init('3ca77f9ef133289839ab3de450e2643f');
+      // 카카오 SDK 초기화 (JavaScript 앱 키)
+      Kakao.init("3ca77f9ef133289839ab3de450e2643f");
 
-      // 카카오 로그인 버튼 클릭 시
-      document
-        .getElementById("kakaoLoginBtn")
-        .addEventListener("click", function (e) {
-          e.preventDefault(); // 기본 href 동작 막기
-
+      $(document).ready(function () {
+        $("#kakaoLoginBtn").on("click", function () {
+          // =============================================
+          // Kakao.Auth.authorize()
+          // - SDK v2의 공식 로그인 방법
+          // - 카카오 로그인 페이지로 이동 후
+          //   인가 코드를 redirectUri로 전달
+          // - 토큰 발급은 callback.html에서 SDK로 처리
+          // =============================================
           Kakao.Auth.authorize({
-            redirectUri: 'https://kimbs-git.github.io/todocWepPage/callback.html',
+            redirectUri:
+              "https://kimbs-git.github.io/todocWepPage/callback.html",
           });
         });
+      });
     </script>
   </body>
 </html>

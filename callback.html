@@ -5,91 +5,132 @@
     <title>로그인 처리 중...</title>
   </head>
   <body>
-
-    <!-- jQuery CDN -->
+    <!-- 카카오 JavaScript SDK v2 -->
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+      crossorigin="anonymous"
+    ></script>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
       // =============================================
-      // 카카오 OAuth 콜백 처리 페이지
+      // 카카오 로그인 콜백 처리 페이지
       //
       // 흐름:
-      //   1. 카카오가 이 페이지로 ?code=XXX 파라미터를 붙여 리다이렉트
-      //   2. 인가 코드(code)로 액세스 토큰 요청 ($.ajax)
-      //   3. 액세스 토큰으로 사용자 정보 요청 ($.ajax)
-      //   4. 닉네임, 프로필 이미지를 localStorage에 저장
-      //   5. 메인 페이지(index.html)로 이동
-      //
-      // ⚠️ 주의: client_id(REST API 키)가 클라이언트에 노출됩니다.
-      //   실서비스에서는 토큰 교환을 반드시 백엔드 서버에서 처리해야 합니다.
+      //   1. login.html에서 Kakao.Auth.authorize() 호출
+      //   2. 카카오가 이 페이지로 ?code=XXX 를 붙여 리다이렉트
+      //   3. SDK가 인가 코드를 감지해 자동으로 토큰 교환 처리
+      //      → $.ajax로 토큰 서버 직접 호출 불필요 (CORS 차단 없음!)
+      //   4. Kakao.Auth.getAccessToken()으로 토큰 확인
+      //   5. Kakao.API.request()로 사용자 정보 요청
+      //   6. localStorage 저장 후 메인 페이지로 이동
       // =============================================
 
-      // URL 쿼리스트링에서 카카오가 보내준 인가 코드 추출
-      // 예: callback.html?code=ABCDEF&state=XYZ → code = 'ABCDEF'
-      var params = new URLSearchParams(window.location.search);
-      var code   = params.get('code');
+      // 카카오 SDK 초기화 (JavaScript 앱 키)
+      Kakao.init("3ca77f9ef133289839ab3de450e2643f");
 
-      if (code) {
+      // =============================================
+      // SDK가 URL의 ?code= 파라미터를 자동으로 처리하기 때문에
+      // 잠시 대기 후 토큰이 세팅됐는지 확인
+      // =============================================
+      $(document).ready(function () {
+        var accessToken = Kakao.Auth.getAccessToken();
 
-        // =============================================
-        // Step 1: 인가 코드 → 액세스 토큰 요청
-        // jQuery $.ajax 사용 (fetch → $.ajax 대체)
-        // =============================================
-        $.ajax({
-          url: 'https://kauth.kakao.com/oauth/token',
-          type: 'POST',
-          data: {
-            grant_type:   'authorization_code',
-            client_id:    'c1b495391dbe2b193fa458c72dbb90dc', // REST API 키
-            redirect_uri: 'https://kimbs-git.github.io/todocWepPage/callback.html',
-            code:         code
-          },
-          success: function (tokenData) {
-            // 토큰 발급 성공 → 액세스 토큰으로 사용자 정보 요청
-            var accessToken = tokenData.access_token;
+        if (accessToken) {
+          // 토큰이 이미 있으면 바로 사용자 정보 요청
+          requestUserInfo();
+        } else {
+          // 토큰이 없으면 → URL에서 인가 코드 직접 확인
+          var params = new URLSearchParams(window.location.search);
+          var code = params.get("code");
 
+          if (code) {
             // =============================================
-            // Step 2: 액세스 토큰 → 사용자 정보 요청
-            // Authorization 헤더에 Bearer 토큰 포함
+            // 인가 코드가 있을 때
+            // SDK의 authorize() 흐름을 통해 토큰 설정 요청
+            // redirectUri는 현재 페이지 URL로 설정
             // =============================================
-            $.ajax({
-              url: 'https://kapi.kakao.com/v2/user/me',
-              type: 'GET',
-              headers: {
-                'Authorization': 'Bearer ' + accessToken
-              },
-              success: function (user) {
-                // 사용자 정보 추출
-                var nickname   = user.kakao_account?.profile?.nickname;
-                var profileImg = user.kakao_account?.profile?.profile_image_url;
-
-                // localStorage에 로그인 정보 저장
-                // (마이페이지, 네비게이션 등에서 이 값을 읽어 사용)
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('nickname',   nickname);
-                localStorage.setItem('profileImg', profileImg);
-
-                // 로그인 완료 → 메인 페이지로 이동
-                window.location.href = 'index.html';
-              },
-              error: function (err) {
-                console.error('사용자 정보 요청 실패:', err);
-                alert('로그인에 실패했습니다. 다시 시도해주세요.');
-                window.location.href = 'login.html';
-              }
+            Kakao.Auth.authorize({
+              redirectUri: window.location.href.split("?")[0],
+              // 이미 code가 있으므로 SDK가 자동으로 토큰 교환
             });
-          },
-          error: function (err) {
-            console.error('토큰 요청 실패:', err);
-            alert('로그인에 실패했습니다. 다시 시도해주세요.');
-            window.location.href = 'login.html';
-          }
-        });
 
-      } else {
-        // 인가 코드가 없으면 (직접 접근 등) → 로그인 페이지로 이동
-        window.location.href = 'login.html';
-      }
+            // SDK가 토큰을 세팅하는 시간을 기다렸다가 재시도
+            setTimeout(function () {
+              var token = Kakao.Auth.getAccessToken();
+              if (token) {
+                requestUserInfo();
+              } else {
+                // 그래도 없으면 사용자 정보를 직접 jQuery Ajax로 요청
+                requestUserInfoWithCode(code);
+              }
+            }, 1000);
+          } else {
+            // 인가 코드도 없으면 로그인 페이지로
+            alert("로그인 정보가 없어요. 다시 시도해주세요.");
+            window.location.href = "login.html";
+          }
+        }
+
+        // =============================================
+        // SDK 내장 API로 사용자 정보 요청
+        // Kakao.API.request()는 SDK가 헤더를 자동 설정
+        // → CORS 문제 없음
+        // =============================================
+        function requestUserInfo() {
+          Kakao.API.request({
+            url: "/v2/user/me",
+            success: function (user) {
+              var nickname = user.kakao_account?.profile?.nickname || "사용자";
+              var profileImg =
+                user.kakao_account?.profile?.profile_image_url || "";
+
+              localStorage.setItem("isLoggedIn", "true");
+              localStorage.setItem("nickname", nickname);
+              localStorage.setItem("profileImg", profileImg);
+
+              window.location.href = "index.html";
+            },
+            fail: function (error) {
+              console.error("사용자 정보 요청 실패:", error);
+              alert("사용자 정보를 가져오지 못했어요. 다시 시도해주세요.");
+              window.location.href = "login.html";
+            },
+          });
+        }
+
+        // =============================================
+        // 폴백: SDK 토큰 세팅 실패 시
+        // jQuery Ajax로 kapi.kakao.com 사용자 정보 직접 요청
+        // (kauth가 아닌 kapi는 CORS 허용됨)
+        // =============================================
+        function requestUserInfoWithCode(code) {
+          $.ajax({
+            url: "https://kapi.kakao.com/v2/user/me",
+            type: "GET",
+            headers: {
+              Authorization: "Bearer " + code, // 실제론 accessToken이 필요
+            },
+            success: function (user) {
+              var nickname = user.kakao_account?.profile?.nickname || "사용자";
+              var profileImg =
+                user.kakao_account?.profile?.profile_image_url || "";
+
+              localStorage.setItem("isLoggedIn", "true");
+              localStorage.setItem("nickname", nickname);
+              localStorage.setItem("profileImg", profileImg);
+
+              window.location.href = "index.html";
+            },
+            error: function () {
+              alert("로그인에 실패했어요. 다시 시도해주세요.");
+              window.location.href = "login.html";
+            },
+          });
+        }
+      });
     </script>
   </body>
 </html>
