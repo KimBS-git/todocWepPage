@@ -9,6 +9,47 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ✅ 비디오 모달 - 기본적으로 숨김 */
+      .video-modal {
+        display: none; /* 기본 숨김 */
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.75);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+      }
+      /* active 클래스가 붙을 때만 보임 */
+      .video-modal.active {
+        display: flex;
+      }
+      .video-wrap {
+        position: relative;
+        background: #000;
+        border-radius: 16px;
+        overflow: hidden;
+        max-width: 480px;
+        width: 90%;
+      }
+      .video-wrap video {
+        width: 100%;
+        display: block;
+      }
+      .video-close {
+        position: absolute;
+        top: 10px; right: 10px;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 32px; height: 32px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 10;
+      }
+    </style>
   </head>
   <body>
     <!-- NAV -->
@@ -256,6 +297,27 @@
         } else {
           location.href = 'login.html';
         }
+      }
+      // ✅ 동영상 모달 열기
+      function openVideo(petName) {
+        const modal  = document.getElementById('videoModal');
+        const source = document.getElementById('videoSource');
+        const player = document.getElementById('videoPlayer');
+ 
+        source.src = petVideos[petName]; // 동영상 경로 설정
+        player.load();                   // 새로 로드
+        player.play();                   // 자동 재생
+        modal.classList.add('active');   // 모달 표시
+      }
+ 
+      // ✅ 동영상 모달 닫기
+      function closeVideo() {
+        const modal  = document.getElementById('videoModal');
+        const player = document.getElementById('videoPlayer');
+ 
+        player.pause();                    // 재생 멈춤
+        player.currentTime = 0;           // 처음으로 되감기
+        modal.classList.remove('active'); // 모달 숨김
       }
     </script>
   </body>
