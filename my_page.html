@@ -557,9 +557,7 @@
     <div class="video-modal" id="videoModal" onclick="closeVideo()">
       <div class="video-wrap" onclick="event.stopPropagation()">
         <button class="video-close" onclick="closeVideo()">✕</button>
-        <video id="videoPlayer" controls>
-          <source id="videoSource" src="" type="video/mp4" />
-        </video>
+        <video id="videoPlayer" controls></video>
       </div>
     </div>
 
@@ -613,9 +611,10 @@
         const source = document.getElementById("videoSource");
         const player = document.getElementById("videoPlayer");
 
-        source.src = petVideos[petName]; // 해당 반려동물 동영상 경로 설정
-        player.load(); // 새 src로 다시 로드
-        player.play(); // 자동 재생
+        player.src = petVideos[petName]; // 해당 반려동물 동영상 경로 설정
+        player.play().catch((e) => {
+          console.log("수동으로 재생해주세요", e);
+        }); // 자동 재생
         modal.classList.add("active"); // 모달 표시 (display:flex)
       }
 
