@@ -219,6 +219,63 @@
     .empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; }
     .empty-state p { font-size: 0.88rem; color: var(--gray); }
 
+    /* 반려동물 카드 */
+    .pet-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 20px 22px;
+      margin-bottom: 12px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid rgba(59,111,240,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeUp 0.5s ease both;
+    }
+    .pet-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(59,111,240,0.13);
+    }
+    .pet-emoji {
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .pet-info { flex: 1; }
+    .pet-name {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+    .pet-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pet-tag {
+      background: var(--bg);
+      color: var(--gray);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      border: 1px solid rgba(59,111,240,0.08);
+    }
+    .pet-tag.gender-male {
+      background: #eef3ff;
+      color: var(--blue);
+    }
+    .pet-tag.gender-female {
+      background: #fff0f5;
+      color: #e05599;
+    }
+
     /* 로그아웃 버튼 */
     .logout-btn {
       width: 100%;
@@ -327,30 +384,36 @@
       </div>
     </div>
 
-    <!-- 지난 예약 -->
+    <!-- 내 반려동물 -->
     <div class="section-header">
       <div class="section-title">
-        🗂️ 지난 예약
-        <span class="section-count">2건</span>
+        🐾 내 반려동물
+        <span class="section-count">2마리</span>
       </div>
     </div>
 
-    <div class="booking-card" style="animation-delay: 0.3s">
-      <div class="booking-icon done">🏥</div>
-      <div class="booking-info">
-        <div class="booking-name">행복 동물병원</div>
-        <div class="booking-detail">예방접종 · 2026.03.10 (화) 14:00</div>
+    <div class="pet-card" style="animation-delay: 0.3s">
+      <div class="pet-emoji">🐱</div>
+      <div class="pet-info">
+        <div class="pet-name">호</div>
+        <div class="pet-tags">
+          <span class="pet-tag">코리안 숏헤어</span>
+          <span class="pet-tag gender-male">♂ 수컷</span>
+          <span class="pet-tag">6살</span>
+        </div>
       </div>
-      <div class="booking-badge badge-done">완료</div>
     </div>
 
-    <div class="booking-card" style="animation-delay: 0.4s">
-      <div class="booking-icon done">✂️</div>
-      <div class="booking-info">
-        <div class="booking-name">럭키 펫 미용</div>
-        <div class="booking-detail">부분 미용 · 2026.02.20 (금) 11:00</div>
+    <div class="pet-card" style="animation-delay: 0.4s">
+      <div class="pet-emoji">🐱</div>
+      <div class="pet-info">
+        <div class="pet-name">쿤</div>
+        <div class="pet-tags">
+          <span class="pet-tag">코리안 숏헤어</span>
+          <span class="pet-tag gender-female">♀ 암컷</span>
+          <span class="pet-tag">6살</span>
+        </div>
       </div>
-      <div class="booking-badge badge-done">완료</div>
     </div>
 
     <!-- 로그아웃 -->
