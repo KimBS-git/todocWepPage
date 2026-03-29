@@ -9,18 +9,22 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+
+    <!-- =============================================
+         비디오 모달 스타일
+         - 기본 상태: display:none 으로 숨김
+         - .active 클래스가 붙으면 display:flex 로 표시
+    ============================================= -->
     <style>
-      /* ✅ 비디오 모달 - 기본적으로 숨김 */
       .video-modal {
-        display: none; /* 기본 숨김 */
+        display: none;
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0,0,0,0.75);
+        background: rgba(0, 0, 0, 0.75);
         z-index: 9999;
         align-items: center;
         justify-content: center;
       }
-      /* active 클래스가 붙을 때만 보임 */
       .video-modal.active {
         display: flex;
       }
@@ -39,7 +43,7 @@
       .video-close {
         position: absolute;
         top: 10px; right: 10px;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.5);
         color: white;
         border: none;
         border-radius: 50%;
@@ -52,21 +56,32 @@
     </style>
   </head>
   <body>
-    <!-- NAV -->
+
+    <!-- =============================================
+         상단 네비게이션 바
+         - 로그인 버튼 클릭 시 handleLoginClick() 실행
+         - 로그인 상태면 마이페이지로, 아니면 로그인 페이지로 이동
+    ============================================= -->
     <nav>
       <div class="nav-logo">
         <div class="logo-icon">🐾</div>
         토닥
       </div>
       <button class="nav-login-btn" onclick="handleLoginClick()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="8" r="4"/>
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-    </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+             viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
       </button>
     </nav>
 
-    <!-- HERO -->
+    <!-- =============================================
+         히어로 섹션
+         - 서비스 소개 문구 + 앱 다운로드 버튼
+         - 앱 UI 목업 4종 (홈, 병원찾기, 예약내역, 마이페이지)
+    ============================================= -->
     <section class="hero">
       <div class="hero-bg-circle c1"></div>
       <div class="hero-bg-circle c2"></div>
@@ -76,8 +91,8 @@
         동물병원<br />예약 서비스
       </h1>
       <p>
-        집, 직장, 어디서든 스마트폰으로 간편하게.<br />가까운 동물병원을 찾고
-        예약까지 한 번에!
+        집, 직장, 어디서든 스마트폰으로 간편하게.<br />
+        가까운 동물병원을 찾고 예약까지 한 번에!
       </p>
       <div class="hero-btns">
         <a href="#" class="btn-store google">
@@ -89,50 +104,56 @@
         </a>
       </div>
 
-      <!-- 폰 목업 -->
-      <!-- 폰 목업 -->
-<div class="hero-mockup">
-  <div class="mockup-row">
-    <div class="mockup-item">
-      <div class="phone-frame">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
-          <img src="images/home.png" alt="홈 화면" />
+      <!-- 앱 화면 목업 4종 가로 배치 -->
+      <div class="hero-mockup">
+        <div class="mockup-row">
+          <div class="mockup-item">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <img src="images/home.png" alt="홈 화면" />
+              </div>
+            </div>
+            <p class="mockup-caption">홈 화면</p>
+          </div>
+          <div class="mockup-item">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <img src="images/search.png" alt="병원 찾기" />
+              </div>
+            </div>
+            <p class="mockup-caption">병원 찾기</p>
+          </div>
+          <div class="mockup-item">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <img src="images/book.png" alt="예약내역" />
+              </div>
+            </div>
+            <p class="mockup-caption">예약내역</p>
+          </div>
+          <div class="mockup-item">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <img src="images/mypage.png" alt="마이 페이지" />
+              </div>
+            </div>
+            <p class="mockup-caption">마이 페이지</p>
+          </div>
         </div>
       </div>
-      <p class="mockup-caption">홈 화면</p>
-    </div>
-    <div class="mockup-item">
-      <div class="phone-frame">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
-          <img src="images/search.png" alt="병원 찾기" />
-        </div>
-      </div>
-      <p class="mockup-caption">병원 찾기</p>
-    </div>
-    <div class="mockup-item">
-      <div class="phone-frame">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
-          <img src="images/book.png" alt="예약내역" />
-        </div>
-      </div>
-      <p class="mockup-caption">예약내역</p>
-    </div>
-    <div class="mockup-item">
-      <div class="phone-frame">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
-          <img src="images/mypage.png" alt="마이 페이지" />
-        </div>
-      </div>
-      <p class="mockup-caption">마이 페이지</p>
-    </div>
-  </div>
-</div>
+    </section>
 
-    <!-- FEATURES -->
+    <!-- =============================================
+         주요 기능 소개 섹션
+         - 지도 기반 병원 찾기
+         - D-DAY 알림
+         - 예약 내역 보기
+         - 미용/호텔/카페 예약
+    ============================================= -->
     <section class="section" id="features">
       <span class="section-label">주요 기능</span>
       <h2 class="section-title">토닥이 특별한 이유</h2>
@@ -143,75 +164,47 @@
         <div class="feature-card">
           <div class="feat-icon blue">🗺️</div>
           <h3>지도 기반 병원 찾기</h3>
-          <p>
-            현재 위치 기준으로 주변 동물병원을 지도에서 한눈에 확인하고, 리뷰와
-            진료 시간도 함께 볼 수 있어요.
-          </p>
+          <p>현재 위치 기준으로 주변 동물병원을 지도에서 한눈에 확인하고, 리뷰와 진료 시간도 함께 볼 수 있어요.</p>
         </div>
         <div class="feature-card">
           <div class="feat-icon orange">📅</div>
           <h3>간편 예약 & D-DAY 알림</h3>
-          <p>
-            몇 번의 탭으로 예약 완료! 예약일이 다가오면 D-DAY 카운트다운으로
-            잊지 않게 알려드려요.
-          </p>
+          <p>몇 번의 탭으로 예약 완료! 예약일이 다가오면 D-DAY 카운트다운으로 잊지 않게 알려드려요.</p>
         </div>
         <div class="feature-card">
           <div class="feat-icon green">📋</div>
           <h3>예약 내역 한눈에 보기</h3>
-          <p>
-            이전 예약 내역과 다가오는 예약을 한 화면에서 확인하고, 정기검진
-            일정도 놓치지 마세요.
-          </p>
+          <p>이전 예약 내역과 다가오는 예약을 한 화면에서 확인하고, 정기검진 일정도 놓치지 마세요.</p>
         </div>
         <div class="feature-card">
           <div class="feat-icon pink">✂️</div>
           <h3>미용·호텔·카페 예약</h3>
-          <p>
-            동물병원뿐만 아니라 미용, 펫호텔, 동물카페, 용품샵까지 반려동물 관련
-            모든 서비스를 예약하세요.
-          </p>
+          <p>동물병원뿐만 아니라 미용, 펫호텔, 동물카페, 용품샵까지 반려동물 관련 모든 서비스를 예약하세요.</p>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- =============================================
+         서비스 목록 섹션 (파란 배경)
+         - 왼쪽: 서비스 칩 목록 (병원, 미용, 호텔, 카페, 용품, 알림)
+         - 오른쪽: 가상 폰 UI (지도 + 예약 카드)
+    ============================================= -->
     <section class="services-section" id="services">
       <div class="services-inner">
         <div>
           <span class="section-label">빠른 서비스</span>
           <h2 class="section-title">반려동물을 위한<br />모든 서비스</h2>
-          <p class="section-sub">
-            병원 예약부터 미용, 호텔, 카페까지 반려동물의 일상을 토닥 하나로
-            관리하세요.
-          </p>
+          <p class="section-sub">병원 예약부터 미용, 호텔, 카페까지 반려동물의 일상을 토닥 하나로 관리하세요.</p>
           <div class="services-list">
-            <div class="svc-chip">
-              <span class="chip-icon">🏥</span
-              ><span class="chip-text">동물병원</span>
-            </div>
-            <div class="svc-chip">
-              <span class="chip-icon">✂️</span
-              ><span class="chip-text">반려동물 미용</span>
-            </div>
-            <div class="svc-chip">
-              <span class="chip-icon">🏨</span
-              ><span class="chip-text">펫호텔</span>
-            </div>
-            <div class="svc-chip">
-              <span class="chip-icon">☕</span
-              ><span class="chip-text">동물카페</span>
-            </div>
-            <div class="svc-chip">
-              <span class="chip-icon">🛍️</span
-              ><span class="chip-text">용품샵</span>
-            </div>
-            <div class="svc-chip">
-              <span class="chip-icon">🔔</span
-              ><span class="chip-text">일정 알림</span>
-            </div>
+            <div class="svc-chip"><span class="chip-icon">🏥</span><span class="chip-text">동물병원</span></div>
+            <div class="svc-chip"><span class="chip-icon">✂️</span><span class="chip-text">반려동물 미용</span></div>
+            <div class="svc-chip"><span class="chip-icon">🏨</span><span class="chip-text">펫호텔</span></div>
+            <div class="svc-chip"><span class="chip-icon">☕</span><span class="chip-text">동물카페</span></div>
+            <div class="svc-chip"><span class="chip-icon">🛍️</span><span class="chip-text">용품샵</span></div>
+            <div class="svc-chip"><span class="chip-icon">🔔</span><span class="chip-text">일정 알림</span></div>
           </div>
         </div>
+        <!-- 가상 폰 UI -->
         <div class="big-phone">
           <div class="bp-notch"></div>
           <div class="bp-map">
@@ -220,22 +213,10 @@
           </div>
           <div class="bp-btn">🗺️ 지도에서 병원 찾기</div>
           <div class="bp-services">
-            <div class="bp-svc">
-              <div class="si">✂️</div>
-              <div class="sn">미용</div>
-            </div>
-            <div class="bp-svc">
-              <div class="si">🏨</div>
-              <div class="sn">호텔</div>
-            </div>
-            <div class="bp-svc">
-              <div class="si">☕</div>
-              <div class="sn">카페</div>
-            </div>
-            <div class="bp-svc">
-              <div class="si">🛍️</div>
-              <div class="sn">용품샵</div>
-            </div>
+            <div class="bp-svc"><div class="si">✂️</div><div class="sn">미용</div></div>
+            <div class="bp-svc"><div class="si">🏨</div><div class="sn">호텔</div></div>
+            <div class="bp-svc"><div class="si">☕</div><div class="sn">카페</div></div>
+            <div class="bp-svc"><div class="si">🛍️</div><div class="sn">용품샵</div></div>
           </div>
           <div class="bp-card">
             <span style="font-size: 1.4rem">📅</span>
@@ -252,13 +233,14 @@
       </div>
     </section>
 
-    <!-- HOW IT WORKS -->
+    <!-- =============================================
+         이용 방법 섹션
+         - 3단계 순서로 서비스 이용법 안내
+    ============================================= -->
     <section class="how-section" id="how">
       <span class="section-label">이용 방법</span>
       <h2 class="section-title">딱 3단계면 끝!</h2>
-      <p class="section-sub">
-        복잡한 절차 없이, 누구나 쉽게 동물병원을 예약할 수 있어요.
-      </p>
+      <p class="section-sub">복잡한 절차 없이, 누구나 쉽게 동물병원을 예약할 수 있어요.</p>
       <div class="steps-row">
         <div class="step">
           <div class="step-num">1</div>
@@ -268,9 +250,7 @@
         <div class="step">
           <div class="step-num">2</div>
           <h4>병원 검색</h4>
-          <p>
-            지도에서 내 주변<br />동물병원을 찾고<br />상세 정보를 확인하세요.
-          </p>
+          <p>지도에서 내 주변<br />동물병원을 찾고<br />상세 정보를 확인하세요.</p>
         </div>
         <div class="step">
           <div class="step-num">3</div>
@@ -280,25 +260,55 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- =============================================
+         푸터
+         - kun2.png 클릭 시 쿤 동영상 모달 재생
+    ============================================= -->
     <footer>
       <div class="footer-logo">🐾 토닥</div>
       <p>
         반려동물 병원 예약 서비스 · 토닥<br />
         고객센터: todok@naver.com · 서울특별시 동대문구 답십리로
-        <img src="images/kun2.png" width="15px" onclick="openVideo('kun')" alt="쿤">
+        <img
+          src="images/kun2.png"
+          width="15px"
+          alt="쿤"
+          style="cursor:pointer; vertical-align:middle;"
+          onclick="openVideo('kun')"
+        />
       </p>
       <p style="margin-top: 12px">© 2026 토닥. All rights reserved.</p>
     </footer>
-    <!-- ✅ 비디오 모달 - active 클래스 없으면 display:none 상태 -->
+
+    <!-- =============================================
+         비디오 모달
+         - 배경 클릭 또는 ✕ 버튼으로 닫기
+         - .active 클래스로 표시/숨김 전환
+    ============================================= -->
     <div class="video-modal" id="videoModal" onclick="closeVideo()">
       <div class="video-wrap" onclick="event.stopPropagation()">
         <button class="video-close" onclick="closeVideo()">✕</button>
-        <video id="videoPlayer" controls>
-        </video>
+        <video id="videoPlayer" controls></video>
       </div>
     </div>
-     <script>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+      // =============================================
+      // 반려동물별 동영상 경로 매핑
+      // =============================================
+      var petVideos = {
+        ho:  'images/hogguk.mp4',
+        kun: 'images/kungguk.mp4'
+      };
+
+      // =============================================
+      // 네비게이션 로그인 버튼
+      // - localStorage에 isLoggedIn 값이 있으면 마이페이지로
+      // - 없으면 로그인 페이지로 이동
+      // =============================================
       function handleLoginClick() {
         if (localStorage.getItem('isLoggedIn')) {
           location.href = 'my_page.html';
@@ -306,32 +316,72 @@
           location.href = 'login.html';
         }
       }
-      const petVideos = {
-        ho: "images/hogguk.mp4",
-        kun: "images/kungguk.mp4",
-      };
-      // ✅ 동영상 모달 열기
+
+      // =============================================
+      // 동영상 모달 열기
+      // @param petName - 'ho' 또는 'kun'
+      // 1. video 태그의 src를 직접 교체 (source 태그 방식보다 안정적)
+      // 2. 모달에 .active 클래스 추가 → 화면에 표시
+      // 3. 자동 재생 시도 (브라우저 정책으로 차단돼도 수동 재생 가능)
+      // =============================================
       function openVideo(petName) {
-        const modal  = document.getElementById('videoModal');
-        const source = document.getElementById('videoSource');
-        const player = document.getElementById('videoPlayer');
- 
-        player.src = petVideos[petName]; // 동영상 경로 설정                  
-        player.play().catch(e => {
-          console.log("수동으로 재생해주세요", e);
-        });                   // 자동 재생
-        modal.classList.add('active');   // 모달 표시
+        var $modal  = $('#videoModal');
+        var $player = $('#videoPlayer');
+
+        $player.attr('src', petVideos[petName]); // jQuery로 src 속성 설정
+        $modal.addClass('active');               // 모달 표시
+
+        // jQuery에는 play() 메서드가 없으므로 DOM 요소를 직접 사용
+        $player[0].play().catch(function(e) {
+          console.log('자동재생이 차단됐어요. 재생 버튼을 눌러주세요.', e);
+        });
       }
- 
-      // ✅ 동영상 모달 닫기
+
+      // =============================================
+      // 동영상 모달 닫기
+      // 1. 재생 멈춤 + 재생 위치 초기화
+      // 2. 모달에서 .active 클래스 제거 → 화면에서 숨김
+      // =============================================
       function closeVideo() {
-        const modal  = document.getElementById('videoModal');
-        const player = document.getElementById('videoPlayer');
- 
-        player.pause();                    // 재생 멈춤
-        player.currentTime = 0;           // 처음으로 되감기
-        modal.classList.remove('active'); // 모달 숨김
+        var $modal  = $('#videoModal');
+        var $player = $('#videoPlayer');
+
+        $player[0].pause();           // 재생 멈춤
+        $player[0].currentTime = 0;  // 처음으로 되감기
+        $modal.removeClass('active'); // 모달 숨김
       }
+
+      // =============================================
+      // jQuery 이벤트 바인딩 (DOM 준비 완료 후 실행)
+      // =============================================
+      $(document).ready(function () {
+
+        // 네비게이션 로그인 버튼 클릭
+        $('.nav-login-btn').on('click', function () {
+          handleLoginClick();
+        });
+
+        // 푸터 쿤 이미지 클릭 → 동영상 모달 열기
+        $('footer img[alt="쿤"]').on('click', function () {
+          openVideo('kun');
+        });
+
+        // 모달 닫기 버튼 클릭
+        $('.video-close').on('click', function () {
+          closeVideo();
+        });
+
+        // 모달 배경(어두운 영역) 클릭 → 닫기
+        $('#videoModal').on('click', function () {
+          closeVideo();
+        });
+
+        // 모달 내부 클릭은 닫기 이벤트 전파 차단
+        $('.video-wrap').on('click', function (e) {
+          e.stopPropagation();
+        });
+
+      });
     </script>
   </body>
 </html>

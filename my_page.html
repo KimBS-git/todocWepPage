@@ -9,13 +9,7 @@
       rel="stylesheet"
     />
     <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
         --blue: #3b6ff0;
@@ -35,12 +29,12 @@
         min-height: 100vh;
       }
 
-      /* NAV */
+      /* =============================================
+         네비게이션 바 - 상단 고정
+      ============================================= */
       nav {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 0; left: 0; right: 0;
         z-index: 100;
         display: flex;
         align-items: center;
@@ -61,24 +55,26 @@
         text-decoration: none;
       }
       .logo-icon {
-        width: 40px;
-        height: 40px;
+        width: 40px; height: 40px;
         border-radius: 12px;
         background: var(--blue);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         font-size: 1.3rem;
       }
 
-      /* 메인 컨텐츠 */
+      /* =============================================
+         메인 콘텐츠 영역
+      ============================================= */
       .page-wrap {
         max-width: 720px;
         margin: 0 auto;
         padding: 100px 24px 60px;
       }
 
-      /* 프로필 카드 */
+      /* =============================================
+         프로필 카드
+         - 카카오 로그인으로 받아온 닉네임 + 프로필 이미지 표시
+      ============================================= */
       .profile-card {
         background: var(--blue);
         border-radius: 28px;
@@ -91,364 +87,181 @@
         animation: fadeUp 0.5s ease both;
       }
       .profile-img-wrap {
-        width: 72px;
-        height: 72px;
+        width: 72px; height: 72px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         font-size: 2rem;
         flex-shrink: 0;
         overflow: hidden;
         border: 3px solid rgba(255, 255, 255, 0.4);
       }
-      .profile-img-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .profile-info {
-        flex: 1;
-      }
-      .profile-greeting {
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.7);
-        font-weight: 500;
-        margin-bottom: 4px;
-      }
-      .profile-name {
-        font-size: 1.4rem;
-        font-weight: 900;
-        color: white;
-        letter-spacing: -0.5px;
-      }
+      .profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+      .profile-info { flex: 1; }
+      .profile-greeting { font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 4px; }
+      .profile-name { font-size: 1.4rem; font-weight: 900; color: white; letter-spacing: -0.5px; }
       .profile-badge {
         margin-top: 8px;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: rgba(255, 255, 255, 0.15);
+        display: inline-flex; align-items: center; gap: 5px;
+        background: rgba(255,255,255,0.15);
         border-radius: 50px;
         padding: 4px 12px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: white;
+        font-size: 0.75rem; font-weight: 700; color: white;
       }
 
-      /* 섹션 제목 */
+      /* =============================================
+         섹션 헤더 (제목 + 건수 뱃지)
+      ============================================= */
       .section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
-        margin-top: 32px;
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 16px; margin-top: 32px;
       }
       .section-title {
-        font-size: 1.05rem;
-        font-weight: 900;
-        color: var(--text);
+        font-size: 1.05rem; font-weight: 900; color: var(--text);
         letter-spacing: -0.5px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        display: flex; align-items: center; gap: 8px;
       }
       .section-count {
-        background: var(--blue-light);
-        color: var(--blue);
-        font-size: 0.72rem;
-        font-weight: 700;
-        padding: 2px 10px;
-        border-radius: 50px;
+        background: var(--blue-light); color: var(--blue);
+        font-size: 0.72rem; font-weight: 700;
+        padding: 2px 10px; border-radius: 50px;
       }
 
-      /* 예약 카드 */
+      /* =============================================
+         예약 카드
+         - 예약 아이콘 + 병원명 + 날짜 + D-DAY 뱃지
+      ============================================= */
       .booking-card {
         background: var(--white);
-        border-radius: 20px;
-        padding: 20px 22px;
-        margin-bottom: 12px;
+        border-radius: 20px; padding: 20px 22px; margin-bottom: 12px;
         box-shadow: var(--card-shadow);
-        display: flex;
-        align-items: center;
-        gap: 16px;
+        display: flex; align-items: center; gap: 16px;
         border: 1px solid rgba(59, 111, 240, 0.06);
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
+        transition: transform 0.2s, box-shadow 0.2s;
         animation: fadeUp 0.5s ease both;
       }
-      .booking-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 16px 40px rgba(59, 111, 240, 0.13);
-      }
+      .booking-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(59,111,240,0.13); }
       .booking-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
+        width: 48px; height: 48px; border-radius: 14px;
         background: var(--blue-light);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.4rem;
-        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.4rem; flex-shrink: 0;
       }
-      .booking-icon.done {
-        background: #f0f0f5;
-      }
-      .booking-info {
-        flex: 1;
-      }
-      .booking-name {
-        font-size: 0.95rem;
-        font-weight: 800;
-        color: var(--text);
-        margin-bottom: 4px;
-      }
-      .booking-detail {
-        font-size: 0.78rem;
-        color: var(--gray);
-        font-weight: 500;
-      }
-      .booking-badge {
-        border-radius: 10px;
-        padding: 6px 14px;
-        font-size: 0.72rem;
-        font-weight: 800;
-        text-align: center;
-        flex-shrink: 0;
-      }
-      .badge-upcoming {
-        background: var(--blue-light);
-        color: var(--blue);
-      }
-      .badge-done {
-        background: #f0f0f5;
-        color: var(--gray);
-      }
+      .booking-info { flex: 1; }
+      .booking-name { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+      .booking-detail { font-size: 0.78rem; color: var(--gray); font-weight: 500; }
       .dday-badge {
-        background: var(--blue);
-        color: white;
-        border-radius: 10px;
-        padding: 6px 14px;
-        text-align: center;
-        flex-shrink: 0;
+        background: var(--blue); color: white;
+        border-radius: 10px; padding: 6px 14px;
+        text-align: center; flex-shrink: 0;
       }
-      .dday-label {
-        font-size: 0.6rem;
-        font-weight: 700;
-      }
-      .dday-num {
-        font-size: 1rem;
-        font-weight: 900;
-      }
+      .dday-label { font-size: 0.6rem; font-weight: 700; }
+      .dday-num { font-size: 1rem; font-weight: 900; }
 
-      /* 빈 상태 */
-      .empty-state {
-        background: var(--white);
-        border-radius: 20px;
-        padding: 40px;
-        text-align: center;
-        box-shadow: var(--card-shadow);
-      }
-      .empty-state .icon {
-        font-size: 2.5rem;
-        margin-bottom: 12px;
-      }
-      .empty-state p {
-        font-size: 0.88rem;
-        color: var(--gray);
-      }
-
-      /* 반려동물 카드 */
+      /* =============================================
+         반려동물 카드
+         - 이미지 클릭 시 동영상 모달 재생
+      ============================================= */
       .pet-card {
         background: var(--white);
-        border-radius: 20px;
-        padding: 20px 22px;
-        margin-bottom: 12px;
+        border-radius: 20px; padding: 20px 22px; margin-bottom: 12px;
         box-shadow: var(--card-shadow);
-        display: flex;
-        align-items: center;
-        gap: 16px;
+        display: flex; align-items: center; gap: 16px;
         border: 1px solid rgba(59, 111, 240, 0.06);
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
+        transition: transform 0.2s, box-shadow 0.2s;
         animation: fadeUp 0.5s ease both;
       }
-      .pet-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 16px 40px rgba(59, 111, 240, 0.13);
-      }
+      .pet-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(59,111,240,0.13); }
       .pet-emoji {
-        width: 56px;
-        height: 56px;
-        border-radius: 16px;
-        background: var(--blue-light);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        flex-shrink: 0;
-        overflow: hidden;
-        cursor: pointer;
+        width: 56px; height: 56px;
+        border-radius: 16px; background: var(--blue-light);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.8rem; flex-shrink: 0;
+        overflow: hidden; cursor: pointer;
       }
-      .pet-emoji img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .pet-info {
-        flex: 1;
-      }
-      .pet-name {
-        font-size: 1rem;
-        font-weight: 900;
-        color: var(--text);
-        margin-bottom: 6px;
-        letter-spacing: -0.3px;
-      }
-      .pet-tags {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-      }
+      .pet-emoji img { width: 100%; height: 100%; object-fit: cover; }
+      .pet-info { flex: 1; }
+      .pet-name { font-size: 1rem; font-weight: 900; color: var(--text); margin-bottom: 6px; letter-spacing: -0.3px; }
+      .pet-tags { display: flex; gap: 6px; flex-wrap: wrap; }
       .pet-tag {
-        background: var(--bg);
-        color: var(--gray);
-        font-size: 0.72rem;
-        font-weight: 700;
-        padding: 3px 10px;
-        border-radius: 50px;
+        background: var(--bg); color: var(--gray);
+        font-size: 0.72rem; font-weight: 700;
+        padding: 3px 10px; border-radius: 50px;
         border: 1px solid rgba(59, 111, 240, 0.08);
       }
-      .pet-tag.gender-male {
-        background: #eef3ff;
-        color: var(--blue);
-      }
-      .pet-tag.gender-female {
-        background: #fff0f5;
-        color: #e05599;
-      }
+      .pet-tag.gender-male { background: #eef3ff; color: var(--blue); }
+      .pet-tag.gender-female { background: #fff0f5; color: #e05599; }
 
-      /* 로그아웃 버튼 */
+      /* =============================================
+         로그아웃 버튼
+      ============================================= */
       .logout-btn {
-        width: 100%;
-        margin-top: 32px;
-        padding: 16px;
+        width: 100%; margin-top: 32px; padding: 16px;
         background: var(--white);
         border: 1.5px solid rgba(59, 111, 240, 0.15);
         border-radius: 16px;
-        color: var(--gray);
-        font-size: 0.9rem;
-        font-weight: 700;
+        color: var(--gray); font-size: 0.9rem; font-weight: 700;
         font-family: "Noto Sans KR", sans-serif;
         cursor: pointer;
-        transition:
-          background 0.2s,
-          color 0.2s,
-          border-color 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
       }
-      .logout-btn:hover {
-        background: #fff0f0;
-        color: #e05555;
-        border-color: #e05555;
-      }
+      .logout-btn:hover { background: #fff0f0; color: #e05555; border-color: #e05555; }
 
-      /* 홈으로 */
+      /* =============================================
+         홈으로 돌아가기 링크
+      ============================================= */
       .back-home {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        margin-top: 16px;
-        font-size: 0.82rem;
-        color: var(--gray);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+        margin-top: 16px; font-size: 0.82rem; color: var(--gray);
+        text-decoration: none; font-weight: 500; transition: color 0.2s;
       }
-      .back-home:hover {
-        color: var(--blue);
-      }
+      .back-home:hover { color: var(--blue); }
 
-      /* ✅ 비디오 모달 - 기본적으로 숨김 */
+      /* =============================================
+         비디오 모달
+         - 기본 상태: display:none (숨김)
+         - .active 클래스 추가 시: display:flex (표시)
+      ============================================= */
       .video-modal {
-        display: none; /* 기본적으로 완전히 숨김 */
+        display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        top: 0; left: 0; right: 0; bottom: 0;
         background: rgba(0, 0, 0, 0.75);
         z-index: 999;
-        align-items: center;
-        justify-content: center;
+        align-items: center; justify-content: center;
       }
-      /* active 클래스가 추가될 때만 보임 */
-      .video-modal.active {
-        display: flex;
-      }
+      .video-modal.active { display: flex; }
       .video-wrap {
         position: relative;
-        background: #000;
-        border-radius: 16px;
-        overflow: hidden;
-        max-width: 480px;
-        width: 90%;
+        background: #000; border-radius: 16px;
+        overflow: hidden; max-width: 480px; width: 90%;
       }
-      .video-wrap video {
-        width: 100%;
-        display: block;
-      }
+      .video-wrap video { width: 100%; display: block; }
       .video-close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
+        position: absolute; top: 10px; right: 10px;
+        background: rgba(0,0,0,0.5); color: white;
+        border: none; border-radius: 50%;
+        width: 32px; height: 32px; font-size: 1rem;
+        cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;
       }
 
       @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
-
       @media (max-width: 768px) {
-        nav {
-          padding: 14px 20px;
-        }
-        .page-wrap {
-          padding: 80px 16px 40px;
-        }
-        .profile-card {
-          padding: 24px 20px;
-        }
+        nav { padding: 14px 20px; }
+        .page-wrap { padding: 80px 16px 40px; }
+        .profile-card { padding: 24px 20px; }
       }
     </style>
   </head>
   <body>
-    <!-- NAV -->
+
+    <!-- =============================================
+         네비게이션 바 - 로고 클릭 시 홈으로 이동
+    ============================================= -->
     <nav>
       <a href="index.html" class="nav-logo">
         <div class="logo-icon">🐾</div>
@@ -457,17 +270,20 @@
     </nav>
 
     <div class="page-wrap">
-      <!-- 프로필 카드 -->
+
+      <!-- =============================================
+           프로필 카드
+           - #nicknameEl : localStorage에서 닉네임 주입
+           - #profileImgEl : localStorage에서 프로필 이미지 주입
+           - 이미지 로드 실패 시 🐾 이모지로 대체
+      ============================================= -->
       <div class="profile-card">
         <div class="profile-img-wrap">
           <img
             id="profileImgEl"
             src=""
             alt="프로필"
-            onerror="
-              this.style.display = 'none';
-              this.parentElement.innerHTML = '🐾';
-            "
+            onerror="this.style.display='none'; this.parentElement.innerHTML='🐾';"
           />
         </div>
         <div class="profile-info">
@@ -477,7 +293,10 @@
         </div>
       </div>
 
-      <!-- 예정된 예약 -->
+      <!-- =============================================
+           예정된 예약 목록
+           - D-DAY 카운트다운 뱃지 표시
+      ============================================= -->
       <div class="section-header">
         <div class="section-title">
           📅 예정된 예약
@@ -509,7 +328,10 @@
         </div>
       </div>
 
-      <!-- 내 반려동물 -->
+      <!-- =============================================
+           내 반려동물 목록
+           - 이미지(.pet-emoji) 클릭 시 openVideo() 호출
+      ============================================= -->
       <div class="section-header">
         <div class="section-title">
           🐾 내 반려동물
@@ -517,9 +339,9 @@
         </div>
       </div>
 
-      <!-- ✅ 호 카드 - onclick으로 동영상 열기 -->
+      <!-- 호 카드 -->
       <div class="pet-card" style="animation-delay: 0.3s">
-        <div class="pet-emoji" onclick="openVideo('ho')">
+        <div class="pet-emoji" data-pet="ho">
           <img src="images/ho.png" alt="호" />
         </div>
         <div class="pet-info">
@@ -532,9 +354,9 @@
         </div>
       </div>
 
-      <!-- ✅ 쿤 카드 - img 태그 닫기 수정 + onclick 추가 -->
+      <!-- 쿤 카드 -->
       <div class="pet-card" style="animation-delay: 0.4s">
-        <div class="pet-emoji" onclick="openVideo('kun')">
+        <div class="pet-emoji" data-pet="kun">
           <img src="images/kun1.png" alt="쿤" />
         </div>
         <div class="pet-info">
@@ -547,86 +369,139 @@
         </div>
       </div>
 
-      <!-- 로그아웃 -->
-      <button class="logout-btn" onclick="handleLogout()">🚪 로그아웃</button>
+      <!-- 로그아웃 버튼 -->
+      <button class="logout-btn" id="logoutBtn">🚪 로그아웃</button>
 
       <a href="index.html" class="back-home">← 홈으로 돌아가기</a>
     </div>
 
-    <!-- ✅ 비디오 모달 - active 클래스 없으면 display:none 상태 -->
-    <div class="video-modal" id="videoModal" onclick="closeVideo()">
-      <div class="video-wrap" onclick="event.stopPropagation()">
-        <button class="video-close" onclick="closeVideo()">✕</button>
+    <!-- =============================================
+         비디오 모달
+         - 배경 클릭 또는 ✕ 버튼으로 닫기
+    ============================================= -->
+    <div class="video-modal" id="videoModal">
+      <div class="video-wrap">
+        <button class="video-close" id="videoClose">✕</button>
         <video id="videoPlayer" controls></video>
       </div>
     </div>
 
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- 카카오 SDK (로그아웃에 필요) -->
     <script
       src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
       integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
       crossorigin="anonymous"
     ></script>
+
     <script>
-      // 로그인 상태 확인
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      if (!isLoggedIn) {
-        window.location.href = "login.html";
-      }
-
-      // 저장된 사용자 정보 불러오기
-      const nickname = localStorage.getItem("nickname") || "사용자";
-      const profileImg = localStorage.getItem("profileImg");
-
-      document.getElementById("nicknameEl").textContent = nickname;
-      if (profileImg) {
-        document.getElementById("profileImgEl").src = profileImg;
-      }
-
-      // 로그아웃
-      function handleLogout() {
-        Kakao.init("3ca77f9ef133289839ab3de450e2643f");
-
-        localStorage.removeItem("isLoggedIn");
-        localStorage.removeItem("nickname");
-        localStorage.removeItem("profileImg");
-
-        if (Kakao.Auth.getAccessToken()) {
-          Kakao.Auth.logout(function () {
-            window.location.href = "login.html";
-          });
-        } else {
-          window.location.href = "login.html";
-        }
-      }
-
-      // 반려동물별 동영상 경로
-      const petVideos = {
-        ho: "images/hogguk.mp4",
-        kun: "images/kungguk.mp4",
+      // =============================================
+      // 반려동물별 동영상 경로 매핑
+      // =============================================
+      var petVideos = {
+        ho:  'images/hogguk.mp4',
+        kun: 'images/kungguk.mp4'
       };
 
-      // ✅ 동영상 모달 열기
+      // =============================================
+      // 동영상 모달 열기
+      // @param petName - 'ho' 또는 'kun'
+      // 1. video 태그 src 교체 (직접 설정 방식이 가장 안정적)
+      // 2. .active 클래스 추가로 모달 표시
+      // 3. 자동재생 시도 (차단돼도 수동 재생 가능)
+      // =============================================
       function openVideo(petName) {
-        const modal = document.getElementById("videoModal");
-        const source = document.getElementById("videoSource");
-        const player = document.getElementById("videoPlayer");
+        var $modal  = $('#videoModal');
+        var $player = $('#videoPlayer');
 
-        player.src = petVideos[petName]; // 해당 반려동물 동영상 경로 설정
-        player.play().catch((e) => {
-          console.log("수동으로 재생해주세요", e);
-        }); // 자동 재생
-        modal.classList.add("active"); // 모달 표시 (display:flex)
+        $player.attr('src', petVideos[petName]); // jQuery로 src 속성 설정
+        $modal.addClass('active');               // 모달 표시
+
+        $player[0].play().catch(function(e) {
+          console.log('자동재생이 차단됐어요. 재생 버튼을 눌러주세요.', e);
+        });
       }
 
-      // ✅ 동영상 모달 닫기
+      // =============================================
+      // 동영상 모달 닫기
+      // 1. 재생 멈춤 + 처음으로 되감기
+      // 2. .active 클래스 제거로 모달 숨김
+      // =============================================
       function closeVideo() {
-        const modal = document.getElementById("videoModal");
-        const player = document.getElementById("videoPlayer");
+        var $modal  = $('#videoModal');
+        var $player = $('#videoPlayer');
 
-        player.pause(); // 재생 멈춤
-        player.currentTime = 0; // 재생 위치 처음으로 초기화
-        modal.classList.remove("active"); // 모달 숨김 (display:none)
+        $player[0].pause();
+        $player[0].currentTime = 0;
+        $modal.removeClass('active');
       }
+
+      // =============================================
+      // DOM 준비 완료 후 실행되는 초기화 코드
+      // =============================================
+      $(document).ready(function () {
+
+        // --- 로그인 상태 확인 ---
+        // localStorage에 isLoggedIn이 없으면 로그인 페이지로 강제 이동
+        if (!localStorage.getItem('isLoggedIn')) {
+          window.location.href = 'login.html';
+          return; // 이후 코드 실행 방지
+        }
+
+        // --- 사용자 정보 표시 ---
+        // localStorage에서 닉네임과 프로필 이미지를 꺼내 화면에 반영
+        var nickname   = localStorage.getItem('nickname') || '사용자';
+        var profileImg = localStorage.getItem('profileImg');
+
+        $('#nicknameEl').text(nickname);
+        if (profileImg) {
+          $('#profileImgEl').attr('src', profileImg);
+        }
+
+        // --- 반려동물 이미지 클릭 → 동영상 모달 ---
+        // data-pet 속성값('ho' 또는 'kun')을 읽어 해당 동영상 재생
+        $('.pet-emoji').on('click', function () {
+          var petName = $(this).data('pet');
+          openVideo(petName);
+        });
+
+        // --- 모달 닫기 버튼 ---
+        $('#videoClose').on('click', function () {
+          closeVideo();
+        });
+
+        // --- 모달 배경 클릭 → 닫기 ---
+        $('#videoModal').on('click', function () {
+          closeVideo();
+        });
+
+        // --- 모달 내부 클릭은 닫기 이벤트 전파 차단 ---
+        $('.video-wrap').on('click', function (e) {
+          e.stopPropagation();
+        });
+
+        // --- 로그아웃 버튼 ---
+        $('#logoutBtn').on('click', function () {
+          Kakao.init('3ca77f9ef133289839ab3de450e2643f');
+
+          // localStorage 로그인 정보 모두 삭제
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('nickname');
+          localStorage.removeItem('profileImg');
+
+          // 카카오 세션이 살아있으면 카카오 로그아웃도 함께 처리
+          if (Kakao.Auth.getAccessToken()) {
+            Kakao.Auth.logout(function () {
+              window.location.href = 'login.html';
+            });
+          } else {
+            window.location.href = 'login.html';
+          }
+        });
+
+      });
     </script>
   </body>
 </html>
