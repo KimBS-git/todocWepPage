@@ -301,7 +301,7 @@
     ></script>
     <script>
       // 카카오 SDK 초기화 - JavaScript 키를 여기에 입력!
-      Kakao.init(KAKAO_JS_KEY);
+      Kakao.init('3ca77f9ef133289839ab3de450e2643f');
 
       // 카카오 로그인 버튼 클릭 시
       document
@@ -310,7 +310,7 @@
           e.preventDefault(); // 기본 href 동작 막기
 
           Kakao.Auth.authorize({
-            redirectUri: REDIRECT_URI,
+            redirectUri: 'https://kimbs-git.github.io/todocWepPage/callback.html',
           });
         });
     </script>
