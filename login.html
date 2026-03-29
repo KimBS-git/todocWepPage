@@ -9,7 +9,13 @@
       rel="stylesheet"
     />
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       :root {
         --blue: #3b6ff0;
@@ -19,8 +25,8 @@
         --white: #ffffff;
         --text: #1a1a2e;
         --gray: #8a8faa;
-        --naver: #03C75A;
-        --kakao: #FEE500;
+        --naver: #03c75a;
+        --kakao: #fee500;
         --kakao-text: #191919;
       }
 
@@ -43,14 +49,26 @@
         pointer-events: none;
       }
       .bg-circle.c1 {
-        width: 500px; height: 500px;
-        background: radial-gradient(circle, rgba(59,111,240,0.12) 0%, transparent 70%);
-        top: -150px; left: -150px;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(59, 111, 240, 0.12) 0%,
+          transparent 70%
+        );
+        top: -150px;
+        left: -150px;
       }
       .bg-circle.c2 {
-        width: 400px; height: 400px;
-        background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%);
-        bottom: -100px; right: -100px;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(245, 166, 35, 0.1) 0%,
+          transparent 70%
+        );
+        bottom: -100px;
+        right: -100px;
       }
 
       /* 카드 */
@@ -60,7 +78,9 @@
         padding: 52px 44px 44px;
         width: 100%;
         max-width: 420px;
-        box-shadow: 0 24px 80px rgba(59,111,240,0.13), 0 2px 8px rgba(0,0,0,0.06);
+        box-shadow:
+          0 24px 80px rgba(59, 111, 240, 0.13),
+          0 2px 8px rgba(0, 0, 0, 0.06);
         position: relative;
         z-index: 1;
         animation: fadeUp 0.6s ease both;
@@ -75,14 +95,15 @@
         margin-bottom: 36px;
       }
       .logo-icon-wrap {
-        width: 64px; height: 64px;
+        width: 64px;
+        height: 64px;
         border-radius: 20px;
         background: var(--blue);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2rem;
-        box-shadow: 0 8px 24px rgba(59,111,240,0.3);
+        box-shadow: 0 8px 24px rgba(59, 111, 240, 0.3);
       }
       .login-logo h1 {
         font-size: 1.8rem;
@@ -103,11 +124,12 @@
         gap: 12px;
         margin-bottom: 20px;
       }
-      .divider::before, .divider::after {
-        content: '';
+      .divider::before,
+      .divider::after {
+        content: "";
         flex: 1;
         height: 1px;
-        background: rgba(59,111,240,0.12);
+        background: rgba(59, 111, 240, 0.12);
       }
       .divider span {
         font-size: 0.78rem;
@@ -130,38 +152,52 @@
         font-weight: 700;
         font-family: "Noto Sans KR", sans-serif;
         cursor: pointer;
-        transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s,
+          filter 0.18s;
         text-decoration: none;
         margin-bottom: 12px;
       }
-      .social-btn:last-child { margin-bottom: 0; }
+      .social-btn:last-child {
+        margin-bottom: 0;
+      }
       .social-btn:hover {
         transform: translateY(-2px);
         filter: brightness(0.95);
       }
-      .social-btn:active { transform: translateY(0); }
+      .social-btn:active {
+        transform: translateY(0);
+      }
 
       /* 네이버 */
       .btn-naver {
         background: var(--naver);
         color: white;
-        box-shadow: 0 4px 16px rgba(3,199,90,0.25);
+        box-shadow: 0 4px 16px rgba(3, 199, 90, 0.25);
       }
-      .btn-naver:hover { box-shadow: 0 8px 28px rgba(3,199,90,0.35); }
+      .btn-naver:hover {
+        box-shadow: 0 8px 28px rgba(3, 199, 90, 0.35);
+      }
 
       /* 카카오 */
       .btn-kakao {
         background: var(--kakao);
         color: var(--kakao-text);
-        box-shadow: 0 4px 16px rgba(254,229,0,0.35);
+        box-shadow: 0 4px 16px rgba(254, 229, 0, 0.35);
       }
-      .btn-kakao:hover { box-shadow: 0 8px 28px rgba(254,229,0,0.5); }
+      .btn-kakao:hover {
+        box-shadow: 0 8px 28px rgba(254, 229, 0, 0.5);
+      }
 
       /* 소셜 아이콘 */
       .social-icon {
-        width: 24px; height: 24px;
+        width: 24px;
+        height: 24px;
         border-radius: 6px;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 1rem;
         font-weight: 900;
         flex-shrink: 0;
@@ -189,7 +225,9 @@
         font-weight: 700;
         text-decoration: none;
       }
-      .login-footer a:hover { text-decoration: underline; }
+      .login-footer a:hover {
+        text-decoration: underline;
+      }
 
       /* 홈으로 돌아가기 */
       .back-home {
@@ -204,13 +242,26 @@
         font-weight: 500;
         transition: color 0.2s;
       }
-      .back-home:hover { color: var(--blue); }
+      .back-home:hover {
+        color: var(--blue);
+      }
 
       @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(28px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     </style>
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="bg-circle c1"></div>
@@ -241,13 +292,33 @@
 
       <!-- 하단 안내 -->
       <div class="login-footer">
-        로그인 시 토닥의 <a href="#">이용약관</a> 및 <a href="#">개인정보처리방침</a>에<br>동의하는 것으로 간주합니다.
+        로그인 시 토닥의 <a href="#">이용약관</a> 및
+        <a href="#">개인정보처리방침</a>에<br />동의하는 것으로 간주합니다.
       </div>
 
       <!-- 홈으로 -->
-      <a href="index.html" class="back-home">
-        ← 홈으로 돌아가기
-      </a>
+      <a href="index.html" class="back-home"> ← 홈으로 돌아가기 </a>
     </div>
+    <script src="config.js"></script>
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+      integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // 카카오 SDK 초기화 - JavaScript 키를 여기에 입력!
+      Kakao.init(KAKAO_JS_KEY);
+
+      // 카카오 로그인 버튼 클릭 시
+      document
+        .getElementById("kakaoLoginBtn")
+        .addEventListener("click", function (e) {
+          e.preventDefault(); // 기본 href 동작 막기
+
+          Kakao.Auth.authorize({
+            redirectUri: REDIRECT_URI,
+          });
+        });
+    </script>
   </body>
 </html>

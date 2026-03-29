@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>로그인 처리 중...</title>
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+    integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+    crossorigin="anonymous"></script>
+</head>
+<body>
+  <p>로그인 처리 중입니다...</p>
+
+  <script src="config.js"></script>
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+  crossorigin="anonymous"></script>
+
+  <script>
+    Kakao.init(KAKAO_JS_KEY);
+
+    // URL에서 인가 코드 꺼내기
+    // 카카오가 callback.html?code=XXXX&state=YYYY 형태로 보내줘요
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code'); // 인가 코드
+
+    if (code) {
+      // 인가 코드로 토큰 받기 (이 부분은 원래 서버에서 해야 안전해요!)
+      // 간단 테스트용으로 아래처럼 할 수 있지만
+      // 실서비스에서는 REST API 키가 노출되므로 백엔드 필수!
+      fetch('https://kauth.kakao.com/oauth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          grant_type: 'authorization_code',
+          client_id: KAKAO_REST_KEY,       
+          redirect_uri: REDIRECT_URI,
+          code: code
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const accessToken = data.access_token;
+
+        // 토큰으로 사용자 정보 요청
+        return fetch('https://kapi.kakao.com/v2/user/me', {
+          headers: { 'Authorization': `Bearer ${accessToken}` }
+        });
+      })
+      .then(res => res.json())
+      .then(user => {
+        // 사용자 정보 출력 (콘솔에서 확인)
+        console.log('카카오 사용자 정보:', user);
+
+        const nickname = user.kakao_account?.profile?.nickname;
+        const profileImg = user.kakao_account?.profile?.profile_image_url;
+
+        alert(`${nickname}님, 환영합니다! 🐾`);
+
+        // 메인 페이지로 이동
+        window.location.href = 'index.html';
+      })
+      .catch(err => {
+        console.error('로그인 실패:', err);
+        alert('로그인에 실패했습니다. 다시 시도해주세요.');
+        window.location.href = 'login.html';
+      });
+
+    } else {
+      // 코드가 없으면 로그인 페이지로
+      window.location.href = 'login.html';
+    }
+
+    function kakaoLogout(){
+        if(kakao.Auth.getAccessToken()){
+            kakao.Auth.logout(function(){
+                console.log('카카오 로그아웃 완료');
+                window.location.href = 'login.html';
+            });
+        }
+    }
+  </script>
+</body>
+</html>
