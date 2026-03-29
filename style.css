@@ -96,6 +96,25 @@ nav {
   background: var(--blue-dark) !important;
   transform: translateY(-1px);
 }
+.nav-login-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(59, 111, 240, 0.2);
+  background: var(--white);
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.nav-login-btn:hover {
+  background: var(--blue-light);
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
 
 /* HERO */
 .hero {
@@ -236,11 +255,8 @@ nav {
   border: 8px solid #e8eaf6;
 }
 .phone-notch {
-  width: 80px;
-  height: 22px;
-  background: #e8eaf6;
-  border-radius: 0 0 16px 16px;
-  margin: 0 auto 12px;
+  position:relative;
+  z-index: 2;
 }
 .phone-content {
   height: 100%;
@@ -390,6 +406,83 @@ nav {
 .ph-dday .dday-num {
   font-size: 0.85rem;
   font-weight: 900;
+}
+
+/* MOCKUP 4개 가로 배치 */
+.mockup-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.mockup-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 2번째, 3번째 폰을 살짝 위로 올려서 깊이감 */
+.mockup-item:nth-child(2),
+.mockup-item:nth-child(3) {
+  transform: translateY(-24px);
+}
+
+.phone-screen {
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #e8eaf6; /* 이미지 없을 때 보이는 placeholder 색 */
+}
+
+.phone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 이미지 없을 때 placeholder 표시 */
+.phone-screen img[src=""],
+.phone-screen img:not([src]) {
+  display: none;
+}
+
+.mockup-caption {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gray);
+  letter-spacing: -0.3px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .mockup-row {
+    gap: 10px;
+  }
+  .phone-frame {
+    width: 260px;
+    height: 520px;
+    background: var(--white);
+    border-radius: 48px;
+    box-shadow:
+      0 24px 90px rgba(59, 111, 240, 0.18),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px 16px;
+    position: relative;
+    border: 8px solid #e9eaf6;
+    overflow: hidden;
+  }
+  .phone-notch {
+    width: 50px;
+    height: 14px;
+  }
+  .mockup-item:nth-child(2),
+  .mockup-item:nth-child(3) {
+    transform: translateY(-14px);
+  }
 }
 
 /* FEATURES */

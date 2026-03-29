@@ -17,12 +17,12 @@
         <div class="logo-icon">🐾</div>
         토닥
       </div>
-      <div class="nav-links">
-        <a href="#features">주요기능</a>
-        <a href="#services">서비스</a>
-        <a href="#how">이용방법</a>
-        <a href="#download" class="nav-cta">앱 다운로드</a>
-      </div>
+      <button class="nav-login-btn" onclick="location.href='login.html'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+    </svg>
+      </button>
     </nav>
 
     <!-- HERO -->
@@ -39,13 +39,6 @@
         예약까지 한 번에!
       </p>
       <div class="hero-btns">
-        <a href="#" class="btn-store">
-          <span class="store-icon">🍎</span>
-          <span class="store-label">
-            <span class="store-sub">Download on the</span>
-            App Store
-          </span>
-        </a>
         <a href="#" class="btn-store google">
           <span class="store-icon">▶</span>
           <span class="store-label">
@@ -56,56 +49,47 @@
       </div>
 
       <!-- 폰 목업 -->
-      <div class="hero-mockup">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <div class="phone-content">
-            <div class="ph-header">
-              <div class="ph-logo-row">
-                <div class="ph-logo-box">🐾</div>
-                <span class="ph-logo-text">토닥</span>
-              </div>
-              <div class="ph-bell">🔔</div>
-            </div>
-            <div class="ph-map">
-              <div class="ph-map-grid"></div>
-              <div class="ph-map-pin">📍</div>
-            </div>
-            <div class="ph-map-btn">지도에서 병원 찾기</div>
-            <div class="ph-section-label">빠른 서비스</div>
-            <div class="ph-services">
-              <div class="ph-svc">
-                <div class="svc-icon">✂️</div>
-                <div class="svc-name">미용</div>
-              </div>
-              <div class="ph-svc">
-                <div class="svc-icon">🏨</div>
-                <div class="svc-name">호텔</div>
-              </div>
-              <div class="ph-svc">
-                <div class="svc-icon">☕</div>
-                <div class="svc-name">카페</div>
-              </div>
-              <div class="ph-svc">
-                <div class="svc-icon">🛍️</div>
-                <div class="svc-name">용품샵</div>
-              </div>
-            </div>
-            <div class="ph-appt">
-              <div class="ph-appt-icon">📅</div>
-              <div class="ph-appt-info">
-                <div class="ph-appt-name">하이유 동물병원</div>
-                <div class="ph-appt-date">26.04.02 (목) 13:00</div>
-              </div>
-              <div class="ph-dday">
-                <div class="dday-label">D-DAY</div>
-                <div class="dday-num">6</div>
-              </div>
-            </div>
-          </div>
+      <!-- 폰 목업 -->
+<div class="hero-mockup">
+  <div class="mockup-row">
+    <div class="mockup-item">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="images/home.png" alt="홈 화면" />
         </div>
       </div>
-    </section>
+      <p class="mockup-caption">홈 화면</p>
+    </div>
+    <div class="mockup-item">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="images/search.png" alt="병원 찾기" />
+        </div>
+      </div>
+      <p class="mockup-caption">병원 찾기</p>
+    </div>
+    <div class="mockup-item">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="images/book.png" alt="예약내역" />
+        </div>
+      </div>
+      <p class="mockup-caption">예약내역</p>
+    </div>
+    <div class="mockup-item">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="images/mypage.png" alt="마이 페이지" />
+        </div>
+      </div>
+      <p class="mockup-caption">마이 페이지</p>
+    </div>
+  </div>
+</div>
 
     <!-- FEATURES -->
     <section class="section" id="features">
@@ -255,22 +239,12 @@
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta-section" id="download">
-      <h2>지금 바로 토닥을<br />시작해보세요 🐾</h2>
-      <p>반려동물과 함께하는 더 행복한 일상, 토닥이 함께합니다.</p>
-      <div class="cta-btns">
-        <a href="#" class="cta-btn">🍎 &nbsp;App Store</a>
-        <a href="#" class="cta-btn secondary">▶ &nbsp;Google Play</a>
-      </div>
-    </section>
-
     <!-- FOOTER -->
     <footer>
       <div class="footer-logo">🐾 토닥</div>
       <p>
         반려동물 병원 예약 서비스 · 토닥<br />
-        고객센터: todak@example.com · 서울특별시 강남구
+        고객센터: todok@naver.com · 서울특별시 동대문구 호로 쿤길
       </p>
       <p style="margin-top: 12px">© 2026 토닥. All rights reserved.</p>
     </footer>

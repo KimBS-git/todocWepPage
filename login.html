@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>토닥 - 로그인</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --blue: #3b6ff0;
+        --blue-dark: #2a55cc;
+        --blue-light: #eef3ff;
+        --bg: #f5f4f9;
+        --white: #ffffff;
+        --text: #1a1a2e;
+        --gray: #8a8faa;
+        --naver: #03C75A;
+        --kakao: #FEE500;
+        --kakao-text: #191919;
+      }
+
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* 배경 장식 원 */
+      .bg-circle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .bg-circle.c1 {
+        width: 500px; height: 500px;
+        background: radial-gradient(circle, rgba(59,111,240,0.12) 0%, transparent 70%);
+        top: -150px; left: -150px;
+      }
+      .bg-circle.c2 {
+        width: 400px; height: 400px;
+        background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%);
+        bottom: -100px; right: -100px;
+      }
+
+      /* 카드 */
+      .login-card {
+        background: var(--white);
+        border-radius: 32px;
+        padding: 52px 44px 44px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 24px 80px rgba(59,111,240,0.13), 0 2px 8px rgba(0,0,0,0.06);
+        position: relative;
+        z-index: 1;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      /* 로고 */
+      .login-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 36px;
+      }
+      .logo-icon-wrap {
+        width: 64px; height: 64px;
+        border-radius: 20px;
+        background: var(--blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        box-shadow: 0 8px 24px rgba(59,111,240,0.3);
+      }
+      .login-logo h1 {
+        font-size: 1.8rem;
+        font-weight: 900;
+        color: var(--blue);
+        letter-spacing: -1px;
+      }
+      .login-logo p {
+        font-size: 0.88rem;
+        color: var(--gray);
+        font-weight: 500;
+      }
+
+      /* 구분선 */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(59,111,240,0.12);
+      }
+      .divider span {
+        font-size: 0.78rem;
+        color: var(--gray);
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      /* 소셜 로그인 버튼 */
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 14px;
+        border: none;
+        font-size: 0.97rem;
+        font-weight: 700;
+        font-family: "Noto Sans KR", sans-serif;
+        cursor: pointer;
+        transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+        text-decoration: none;
+        margin-bottom: 12px;
+      }
+      .social-btn:last-child { margin-bottom: 0; }
+      .social-btn:hover {
+        transform: translateY(-2px);
+        filter: brightness(0.95);
+      }
+      .social-btn:active { transform: translateY(0); }
+
+      /* 네이버 */
+      .btn-naver {
+        background: var(--naver);
+        color: white;
+        box-shadow: 0 4px 16px rgba(3,199,90,0.25);
+      }
+      .btn-naver:hover { box-shadow: 0 8px 28px rgba(3,199,90,0.35); }
+
+      /* 카카오 */
+      .btn-kakao {
+        background: var(--kakao);
+        color: var(--kakao-text);
+        box-shadow: 0 4px 16px rgba(254,229,0,0.35);
+      }
+      .btn-kakao:hover { box-shadow: 0 8px 28px rgba(254,229,0,0.5); }
+
+      /* 소셜 아이콘 */
+      .social-icon {
+        width: 24px; height: 24px;
+        border-radius: 6px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem;
+        font-weight: 900;
+        flex-shrink: 0;
+      }
+      .naver-icon {
+        background: white;
+        color: var(--naver);
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+      .kakao-icon {
+        font-size: 1.1rem;
+      }
+
+      /* 하단 안내 */
+      .login-footer {
+        margin-top: 28px;
+        text-align: center;
+        font-size: 0.78rem;
+        color: var(--gray);
+        line-height: 1.7;
+      }
+      .login-footer a {
+        color: var(--blue);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .login-footer a:hover { text-decoration: underline; }
+
+      /* 홈으로 돌아가기 */
+      .back-home {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 24px;
+        font-size: 0.82rem;
+        color: var(--gray);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .back-home:hover { color: var(--blue); }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(28px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+
+    <div class="login-card">
+      <!-- 로고 -->
+      <div class="login-logo">
+        <div class="logo-icon-wrap">🐾</div>
+        <h1>토닥</h1>
+        <p>반려동물 병원 예약 서비스</p>
+      </div>
+
+      <!-- 소셜 로그인 -->
+      <div class="divider"><span>간편 로그인</span></div>
+
+      <!-- 네이버 로그인 버튼 -->
+      <a href="#naver-login" class="social-btn btn-naver" id="naverLoginBtn">
+        <div class="social-icon naver-icon">N</div>
+        네이버로 로그인
+      </a>
+
+      <!-- 카카오 로그인 버튼 -->
+      <a href="#kakao-login" class="social-btn btn-kakao" id="kakaoLoginBtn">
+        <div class="social-icon kakao-icon">💬</div>
+        카카오로 로그인
+      </a>
+
+      <!-- 하단 안내 -->
+      <div class="login-footer">
+        로그인 시 토닥의 <a href="#">이용약관</a> 및 <a href="#">개인정보처리방침</a>에<br>동의하는 것으로 간주합니다.
+      </div>
+
+      <!-- 홈으로 -->
+      <a href="index.html" class="back-home">
+        ← 홈으로 돌아가기
+      </a>
+    </div>
+  </body>
+</html>
