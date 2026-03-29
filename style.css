@@ -107,7 +107,10 @@ nav {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.15s;
 }
 
 .nav-login-btn:hover {
@@ -255,7 +258,7 @@ nav {
   border: 8px solid #e8eaf6;
 }
 .phone-notch {
-  position:relative;
+  position: relative;
   z-index: 2;
 }
 .phone-content {
@@ -868,12 +871,19 @@ footer {
   text-align: center;
   font-size: 0.85rem;
   line-height: 1.8;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 footer .footer-logo {
   color: white;
   font-weight: 900;
   font-size: 1.2rem;
   margin-bottom: 8px;
+}
+footer p{
+  white-space: nowrap;
 }
 
 @keyframes fadeUp {
