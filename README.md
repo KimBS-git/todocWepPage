@@ -1,108 +1,102 @@
-  # 🐾 토닥 (Todok)  - [완성 페이지](https://todoc-app.netlify.app/)
+# 🐾 토닥 - 반려동물 병원 예약 서비스
 
-> 반려동물 병원 예약, 이젠 쉽고 빠르게!
-
-토닥은 반려동물 보호자를 위한 동물병원 예약 웹 서비스입니다.  
-지도 기반 병원 검색부터 예약, D-DAY 알림, 마이페이지까지 하나의 앱에서 관리할 수 있습니다.
+> 집, 직장, 어디서든 스마트폰으로 간편하게.  
+> 가까운 동물병원을 찾고 예약까지 한 번에!
 
 ---
 
-## 📁 프로젝트 구조
+## 🐾 기획의도
 
-```
-todok/
-├── index.html       # 메인 홈페이지 (랜딩 페이지)
-├── login.html       # 카카오 로그인 페이지
-├── my_page.html     # 마이페이지 (예약 내역, 반려동물 정보)
-├── callback.html    # 카카오 로그인 처리
-├── style.css        # 전역 스타일시트
-├── READ.md
-├── netlify
-└── images
-```
+>이제는 길에서 유모차만큼 개모차가 보이는 시대인만큼, 반려동물을 위한 전용 앱이 필요하다고 생각했습니다.
+>
+>1. 수많은 동물병원 중 내 반려동물에게 맞는 최상의 서비스를 받기 위해
+>2. 말도 못하고 언제 아플지 모르는 반려동물을 위해 빠르고 간편한 예약이 필요하기에
+>3. 전국 농어촌 지역에서 수산물·가축을 돌보는 분들도 출장 진료를 쉽게 연결받을 수 있도록
+---
 
+## 📌 프로젝트 소개
+
+**토닥**은 반려동물 보호자를 위한 동물병원 예약 서비스 **랜딩 페이지**입니다.  
+지도 기반 병원 검색, 예약 내역 확인, 카카오 소셜 로그인 등의 기능을 제공합니다.
 
 ---
 
-## 📄 페이지별 기능
+## 🗂️ 프로젝트 구조
 
-### index.html — 홈페이지
-- 서비스 소개 히어로 섹션
-- 앱 UI 목업 4종 전시 (홈, 병원 찾기, 예약내역, 마이페이지)
-- 주요 기능 소개 (지도 기반 병원 찾기, D-DAY 알림, 예약 내역, 미용·호텔·카페 예약)
-- 서비스 칩 목록 및 가상 폰 UI
-- 3단계 이용 방법 안내
-- 푸터의 쿤 이미지 클릭 시 동영상 모달 재생
-- 로그인 상태에 따라 마이페이지 또는 로그인 페이지로 이동
-
-### login.html — 로그인 페이지
-- 카카오 로그인 연동
-- 로그인 성공 시 닉네임, 프로필 이미지를 `localStorage`에 저장
-- 로그인 완료 후 마이페이지로 자동 이동
-
-### my_page.html — 마이페이지
-- 로그인하지 않은 경우 `login.html`로 자동 리다이렉트
-- 카카오 프로필 이미지 및 닉네임 표시
-- 예정된 예약 목록 (D-DAY 카운트다운 표시)
-- 내 반려동물 정보
-- 카카오 로그아웃 기능
+```
+TODOCWEB/
+├── images/               # 이미지 및 동영상 리소스
+├── index.html            # 메인 랜딩 페이지
+├── login.html            # 카카오 로그인 페이지
+├── callback.html         # 카카오 로그인 콜백 처리
+├── my_page.html          # 마이페이지 (예약 내역 / 반려동물 관리)
+├── search.html           # 병원 찾기 (네이버 지도)
+├── style.css             # 공통 스타일시트
+├── .gitignore
+└── README.md
+```
 
 ---
 
 ## ✨ 주요 기능
 
-### 🎬 동영상 모달
-숨겨진 이미지를 클릭하면 해당 반려동물의 동영상이 팝업으로 재생됩니다.
+### 🏠 메인 페이지 (`index.html`)
+- 서비스 소개 및 앱 다운로드 버튼 (App Store / Google Play)
+- 앱 화면 목업 4종 (홈, 병원찾기, 예약내역, 마이페이지)
+- 주요 기능 소개 섹션 (지도 기반 검색, D-DAY 알림, 예약 내역, 미용·호텔·카페)
+- 서비스 목록 및 이용 방법 안내
+- 푸터 반려묘 이미지 클릭 시 동영상 모달 재생
 
-동영상 모달은 다음 방식으로 동작합니다:
-- 기본 상태: `display: none` — 화면에 보이지 않음
-- 이미지 클릭 시: `.active` 클래스 추가 → `display: flex` 로 전환되며 표시
-- 모달 닫기 버튼(✕) 또는 배경 클릭 시: `.active` 클래스 제거 → 다시 숨김
-- 닫을 때 동영상이 자동으로 일시정지되고 처음으로 되감깁니다
+### 🔐 로그인 (`login.html`)
+- 카카오 소셜 로그인 (Kakao JavaScript SDK v2)
+- 로그인 후 `callback.html`로 리다이렉트
 
-```javascript
-// 동영상 열기
-function openVideo(petName) {
-  const modal  = document.getElementById('videoModal');
-  const player = document.getElementById('videoPlayer');
-  player.src = petVideos[petName]; 
-  modal.classList.add('active');
-  player.play().catch(e => console.log('수동으로 재생해주세요', e));
-}
+### 🔄 로그인 콜백 (`callback.html`)
+- 카카오 인가 코드 수신 후 액세스 토큰 교환
+- 사용자 정보(닉네임, 프로필 이미지) 획득
+- `localStorage`에 로그인 상태 저장 후 메인 페이지로 이동
 
-// 동영상 닫기
-function closeVideo() {
-  const modal  = document.getElementById('videoModal');
-  const player = document.getElementById('videoPlayer');
-  player.pause();
-  player.currentTime = 0;
-  modal.classList.remove('active');
-}
-```
+### 🗺️ 병원 찾기 (`search.html`)
+- **네이버 지도** 기반 주변 동물병원 마커 표시
+- 병원 이름 / 주소 키워드 검색 (더미 데이터 내 필터링)
+- 필터 태그: 전체 / 24시간 / 주말진료 / 고양이 / 강아지 / 특수동물 / 응급
+- 마커 클릭 시 바텀 시트로 병원 상세 정보 표시
+- 내 위치 찾기 (Geolocation API)
 
-### 🔐 카카오 로그인
-카카오 JavaScript SDK를 사용해 소셜 로그인을 구현합니다.  
-로그인 후 사용자 정보는 `localStorage`에 저장되어 마이페이지에서 활용됩니다.
-
-```javascript
-// 저장되는 항목
-localStorage.setItem('isLoggedIn', true);
-localStorage.setItem('nickname', '사용자 닉네임');
-localStorage.setItem('profileImg', '프로필 이미지 URL');
-```
-
-로그아웃 시 위 항목을 모두 제거하고 카카오 세션도 함께 종료합니다.
+### 👤 마이페이지 (`my_page.html`)
+- 카카오 프로필 정보 표시 (닉네임, 프로필 이미지)
+- 예약 내역 조회 및 D-DAY 카운트다운
+- 예약 취소 기능 (확인 모달 포함)
+- 반려동물 목록 관리 (추가 / 삭제)
+- 반려동물 이미지 클릭 시 동영상 모달 재생
+- 로그아웃
 
 ---
 
-## 🛠️ 사용 기술
+## 🛠️ 기술 스택
 
 | 분류 | 기술 |
-|---|---|
-| 마크업 | HTML5 |
-| 스타일 | CSS3 (CSS 변수, Flexbox, 애니메이션) |
-| 스크립트 | Vanilla JavaScript |
-| 폰트 | Google Fonts — Noto Sans KR |
-| 인증 | Kakao JavaScript SDK v2.7.2 |
+|------|------|
+| 프론트엔드 | HTML5, CSS3, Vanilla JavaScript |
+| 스타일 | CSS Variables, Flexbox, Grid |
+| 라이브러리 | jQuery 3.7.1 |
+| 지도 | 네이버 지도 API (Naver Maps JavaScript API v3) |
+| 인증 | 카카오 로그인 (Kakao JavaScript SDK v2) |
+| 상태 관리 | localStorage (로그인 상태, 사용자 정보) |
+| 호스팅 | GitHub Pages |
+
+
 
 ---
+
+## ⚠️ 주의사항
+
+- 병원 찾기 페이지의 병원 데이터는 **더미 데이터**입니다. 실제 서비스가 아닙니다.
+- 카카오 로그인은 등록된 도메인에서만 작동합니다.
+- 네이버 지도는 등록된 Client ID와 허용 도메인이 일치해야 표시됩니다.
+
+---
+
+## 📄 라이선스
+
+© 2026 토닥. All rights reserved.

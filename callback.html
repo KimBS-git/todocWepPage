@@ -5,17 +5,17 @@
     <title>로그인 처리 중...</title>
   </head>
   <body>
-    <!-- 카카오 JavaScript SDK v2 -->
     <script
       src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
       integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
       crossorigin="anonymous"
     ></script>
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
       $(document).ready(function () {
+        Kakao.init("3ca77f9ef133289839ab3de450e2643f");
+
         var params = new URLSearchParams(window.location.search);
         var code = params.get("code");
 
@@ -25,26 +25,26 @@
           return;
         }
 
-        // ① Netlify Function에 인가 코드 전달 → 액세스 토큰 받기
+        // ✅ 카카오 서버에 직접 토큰 요청 (백엔드 없이!)
         $.ajax({
-          url: "/.netlify/functions/kakao_token", // Netlify Function 주소
+          url: "https://kauth.kakao.com/oauth/token",
           type: "POST",
-          contentType: "application/json",
-          data: JSON.stringify({
+          data: {
+            grant_type: "authorization_code",
+            client_id: "3ca77f9ef133289839ab3de450e2643f", // JavaScript 앱 키
+            redirect_uri: "https://kimbs-git.github.io/todocWepPage/callback.html",
             code: code,
-            redirectUri: "https://todoc-app.netlify.app/callback.html", // 본인 주소로 변경
-          }),
+            // ⚠️ client_secret이 없는 앱이면 이 줄 삭제
+            // client_secret: "여기에_시크릿_키",
+          },
           success: function (res) {
-            var data = typeof res === 'string' ? JSON.parse(res) : res;
-            var accessToken = data.accessToken;
+            var accessToken = res.access_token;
 
-            // ② 액세스 토큰으로 카카오 사용자 정보 요청
+            // 사용자 정보 요청
             $.ajax({
               url: "https://kapi.kakao.com/v2/user/me",
               type: "GET",
-              headers: {
-                Authorization: "Bearer " + accessToken,
-              },
+              headers: { Authorization: "Bearer " + accessToken },
               success: function (user) {
                 var nickname =
                   user.kakao_account?.profile?.nickname || "사용자";
@@ -63,7 +63,8 @@
               },
             });
           },
-          error: function () {
+          error: function (err) {
+            console.error(err);
             alert("로그인에 실패했어요. 다시 시도해주세요.");
             window.location.href = "login.html";
           },
