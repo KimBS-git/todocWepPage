@@ -310,9 +310,9 @@
           <div class="booking-name">하이유 동물병원</div>
           <div class="booking-detail">정기검진 · 2026.04.02 (목) 13:00</div>
         </div>
-        <div class="dday-badge">
+        <div class="dday-badge" data-data="2026-04-02">
           <div class="dday-label">D-DAY</div>
-          <div class="dday-num">6</div>
+          <div class="dday-num">-</div>
         </div>
       </div>
 
@@ -322,9 +322,9 @@
           <div class="booking-name">럭키 펫 미용</div>
           <div class="booking-detail">전체 미용 · 2026.04.15 (수) 10:00</div>
         </div>
-        <div class="dday-badge">
+        <div class="dday-badge" data-data="2026-04-15">
           <div class="dday-label">D-DAY</div>
-          <div class="dday-num">19</div>
+          <div class="dday-num">-</div>
         </div>
       </div>
 
@@ -442,6 +442,28 @@
       // DOM 준비 완료 후 실행되는 초기화 코드
       // =============================================
       $(document).ready(function () {
+
+        function calcDday(dateStr){
+          var today = new Date();
+          today.setHours(0, 0, 0, 0);
+          var target = new Date(dateStr);
+          var diff = Math.ceil((target - today) / (1000*60*60*24));
+          return diff;
+        }
+        $('.dday-badge').each(function(){
+          var dateStr = $(this).data('date');
+          var days = calcDday(dateStr);
+
+          var $numE1 = $(this).find('.dday-num');
+
+          if(days > 0){
+            $numE1.text(days);
+          }else if(days === 0){
+            $numE1.text('D-Day');
+          }else{
+            $numE1.text('D+' + Math.abs(days));
+          }
+        });
 
         // --- 로그인 상태 확인 ---
         // localStorage에 isLoggedIn이 없으면 로그인 페이지로 강제 이동
