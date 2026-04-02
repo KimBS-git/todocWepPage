@@ -35,6 +35,9 @@
             redirectUri: "https://todoc-app.netlify.app/callback.html", // 본인 주소로 변경
           }),
           success: function (res) {
+            console.log("받아온 토큰 : ", res);
+            console.log("accessToken : ", res.accessToken);
+
             var accessToken = res.accessToken;
 
             // ② 액세스 토큰으로 카카오 사용자 정보 요청
