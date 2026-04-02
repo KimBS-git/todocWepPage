@@ -248,31 +248,8 @@
 
     <script>
      $("#kakaoLoginBtn").on("click", function () {
-  Kakao.Auth.login({
-    success: function (authObj) {
-      // 로그인 성공 → 바로 사용자 정보 요청
-      Kakao.API.request({
-        url: "/v2/user/me",
-      })
-      .then(function (user) {
-        var nickname = user.kakao_account?.profile?.nickname || "사용자";
-        var profileImg = user.kakao_account?.profile?.profile_image_url || "";
-
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("nickname", nickname);
-        localStorage.setItem("profileImg", profileImg);
-
-        window.location.href = "index.html";
-      })
-      .catch(function (error) {
-        console.error("사용자 정보 요청 실패:", error);
-        alert("다시 시도해주세요.");
-      });
-    },
-    fail: function (error) {
-      console.error("로그인 실패:", error);
-      alert("로그인에 실패했어요. 다시 시도해주세요.");
-    }
+  Kakao.Auth.authorize({
+    redirectUri: "https://stunning-melba-b13670.netlify.app/callback.html"
   });
 });
     </script>
