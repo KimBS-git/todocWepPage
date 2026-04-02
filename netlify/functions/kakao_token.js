@@ -13,7 +13,7 @@ exports.handler = async function (event) {
     },
     body: new URLSearchParams({
       grant_type: "authorization_code",
-      client_id: ProcessingInstruction.env.KAKAO_REST_API_KEY, // ← 카카오 REST API 키
+      client_id: process.env.KAKAO_REST_API_KEY, // ← 카카오 REST API 키
       redirect_uri: redirectUri,
       code: code,
     }),
