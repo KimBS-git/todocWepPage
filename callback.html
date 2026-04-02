@@ -38,8 +38,6 @@
             var data = typeof res === 'string' ? JSON.parse(res) : res;
             var accessToken = data.accessToken;
 
-            var accessToken = res.accessToken;
-
             // ② 액세스 토큰으로 카카오 사용자 정보 요청
             $.ajax({
               url: "https://kapi.kakao.com/v2/user/me",
