@@ -247,11 +247,14 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
-     $("#kakaoLoginBtn").on("click", function () {
-  Kakao.Auth.authorize({
-    redirectUri: "https://stunning-melba-b13670.netlify.app/callback.html"
-  });
-});
+      Kakao.init("3ca77f9ef133289839ab3de450e2643f");
+
+      $("#kakaoLoginBtn").on("click", function () {
+        Kakao.Auth.authorize({
+          redirectUri:
+            "https://stunning-melba-b13670.netlify.app/callback.html",
+        });
+      });
     </script>
   </body>
 </html>
