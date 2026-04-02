@@ -35,8 +35,8 @@
             redirectUri: "https://todoc-app.netlify.app/callback.html", // 본인 주소로 변경
           }),
           success: function (res) {
-            console.log("받아온 토큰 : ", res);
-            console.log("accessToken : ", res.accessToken);
+            var data = typeof res === 'string' ? JSON.parse(res) : res;
+            var accessToken = data.accessToken;
 
             var accessToken = res.accessToken;
 
