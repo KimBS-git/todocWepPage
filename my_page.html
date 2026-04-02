@@ -627,7 +627,9 @@
         }
         $(".dday-badge").each(function () {
           var dateStr = $(this).data("date");
+          console.log('dateStr:', dateStr);
           var days = calcDday(dateStr);
+          console.log('days:', days);
 
           var $numE1 = $(this).find(".dday-num");
 
