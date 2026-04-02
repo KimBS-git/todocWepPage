@@ -68,28 +68,87 @@
          - 로그인 버튼 클릭 시 handleLoginClick() 실행
          - 로그인 상태면 마이페이지로, 아니면 로그인 페이지로 이동
     ============================================= -->
+    <!-- =============================================
+     index.html 의 <nav> 부분만 아래로 교체하세요
+     (기존 nav 태그 전체를 이 코드로 대체)
+============================================= -->
     <nav>
       <div class="nav-logo">
         <div class="logo-icon">🐾</div>
         토닥
       </div>
-      <button class="nav-login-btn">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+
+      <div style="display: flex; align-items: center; gap: 10px">
+        <!-- ① 병원 검색 버튼 -->
+        <a
+          href="search.html"
+          style="
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #eef3ff;
+            color: #3b6ff0;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-family: &quot;Noto Sans KR&quot;, sans-serif;
+            text-decoration: none;
+            transition:
+              background 0.2s,
+              transform 0.15s;
+          "
+          onmouseover="
+            this.style.background = '#dce8ff';
+            this.style.transform = 'translateY(-1px)';
+          "
+          onmouseout="
+            this.style.background = '#eef3ff';
+            this.style.transform = 'translateY(0)';
+          "
         >
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          병원 찾기
+        </a>
+
+        <!-- ② 기존 로그인/마이페이지 버튼 -->
+        <button class="nav-login-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+          </svg>
+        </button>
+      </div>
     </nav>
+
+    <!--
+  ※ style.css 의 nav 스타일에 아래 한 줄 추가가 필요합니다:
+     nav { justify-content: space-between; }
+  → 이미 있다면 추가 불필요
+-->
 
     <!-- =============================================
          히어로 섹션

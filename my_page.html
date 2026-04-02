@@ -9,14 +9,11 @@
       rel="stylesheet"
     />
     <style>
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
-
       :root {
         --blue: #3b6ff0;
         --blue-dark: #2a55cc;
@@ -25,9 +22,10 @@
         --white: #ffffff;
         --text: #1a1a2e;
         --gray: #8a8faa;
-        --card-shadow: 0 8px 32px rgba(59, 111, 240, 0.1);
+        --red: #e05555;
+        --red-light: #fff0f0;
+        --card-shadow: 0 8px 32px rgba(59,111,240,0.1);
       }
-
       body {
         font-family: "Noto Sans KR", sans-serif;
         background: var(--bg);
@@ -35,22 +33,18 @@
         min-height: 100vh;
       }
 
-      /* =============================================
-         네비게이션 바 - 상단 고정
-      ============================================= */
+      /* 네비게이션 */
       nav {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 0; left: 0; right: 0;
         z-index: 100;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 18px 48px;
-        background: rgba(245, 244, 249, 0.9);
+        background: rgba(245,244,249,0.9);
         backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(59, 111, 240, 0.07);
+        border-bottom: 1px solid rgba(59,111,240,0.07);
       }
       .nav-logo {
         display: flex;
@@ -72,20 +66,13 @@
         justify-content: center;
         font-size: 1.3rem;
       }
-
-      /* =============================================
-         메인 콘텐츠 영역
-      ============================================= */
       .page-wrap {
         max-width: 720px;
         margin: 0 auto;
         padding: 100px 24px 60px;
       }
 
-      /* =============================================
-         프로필 카드
-         - 카카오 로그인으로 받아온 닉네임 + 프로필 이미지 표시
-      ============================================= */
+      /* 프로필 카드 */
       .profile-card {
         background: var(--blue);
         border-radius: 28px;
@@ -94,48 +81,32 @@
         align-items: center;
         gap: 24px;
         margin-bottom: 24px;
-        box-shadow: 0 16px 48px rgba(59, 111, 240, 0.25);
+        box-shadow: 0 16px 48px rgba(59,111,240,0.25);
         animation: fadeUp 0.5s ease both;
       }
       .profile-img-wrap {
         width: 72px;
         height: 72px;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255,255,255,0.2);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2rem;
         flex-shrink: 0;
         overflow: hidden;
-        border: 3px solid rgba(255, 255, 255, 0.4);
+        border: 3px solid rgba(255,255,255,0.4);
       }
-      .profile-img-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .profile-info {
-        flex: 1;
-      }
-      .profile-greeting {
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.7);
-        font-weight: 500;
-        margin-bottom: 4px;
-      }
-      .profile-name {
-        font-size: 1.4rem;
-        font-weight: 900;
-        color: white;
-        letter-spacing: -0.5px;
-      }
+      .profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+      .profile-info { flex: 1; }
+      .profile-greeting { font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 4px; }
+      .profile-name { font-size: 1.4rem; font-weight: 900; color: white; letter-spacing: -0.5px; }
       .profile-badge {
         margin-top: 8px;
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255,255,255,0.15);
         border-radius: 50px;
         padding: 4px 12px;
         font-size: 0.75rem;
@@ -143,9 +114,7 @@
         color: white;
       }
 
-      /* =============================================
-         섹션 헤더 (제목 + 건수 뱃지)
-      ============================================= */
+      /* 섹션 헤더 */
       .section-header {
         display: flex;
         align-items: center;
@@ -173,7 +142,8 @@
 
       /* =============================================
          예약 카드
-         - 예약 아이콘 + 병원명 + 날짜 + D-DAY 뱃지
+         - 예약 취소 버튼 포함
+         - 취소됨 상태일 때 .cancelled 클래스 적용
       ============================================= */
       .booking-card {
         background: var(--white);
@@ -184,15 +154,22 @@
         display: flex;
         align-items: center;
         gap: 16px;
-        border: 1px solid rgba(59, 111, 240, 0.06);
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
+        border: 1px solid rgba(59,111,240,0.06);
+        transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
         animation: fadeUp 0.5s ease both;
+        flex-wrap: wrap; /* 모바일에서 줄바꿈 허용 */
       }
       .booking-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 16px 40px rgba(59, 111, 240, 0.13);
+        box-shadow: 0 16px 40px rgba(59,111,240,0.13);
+      }
+      /* 취소된 예약 스타일 */
+      .booking-card.cancelled {
+        opacity: 0.5;
+        background: #fafafa;
+      }
+      .booking-card.cancelled .dday-badge {
+        background: var(--gray);
       }
       .booking-icon {
         width: 48px;
@@ -205,20 +182,19 @@
         font-size: 1.4rem;
         flex-shrink: 0;
       }
-      .booking-info {
-        flex: 1;
+      .booking-info { flex: 1; min-width: 0; }
+      .booking-name { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+      .booking-detail { font-size: 0.78rem; color: var(--gray); font-weight: 500; }
+      .cancelled-badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--red);
+        background: var(--red-light);
+        padding: 2px 8px;
+        border-radius: 50px;
+        display: none; /* 기본 숨김 */
       }
-      .booking-name {
-        font-size: 0.95rem;
-        font-weight: 800;
-        color: var(--text);
-        margin-bottom: 4px;
-      }
-      .booking-detail {
-        font-size: 0.78rem;
-        color: var(--gray);
-        font-weight: 500;
-      }
+      .booking-card.cancelled .cancelled-badge { display: inline-flex; }
       .dday-badge {
         background: var(--blue);
         color: white;
@@ -227,18 +203,37 @@
         text-align: center;
         flex-shrink: 0;
       }
-      .dday-label {
-        font-size: 0.6rem;
+      .dday-label { font-size: 0.6rem; font-weight: 700; }
+      .dday-num { font-size: 1rem; font-weight: 900; }
+
+      /* 예약 취소 버튼 */
+      .btn-cancel-booking {
+        flex-basis: 100%; /* 새 줄에 배치 */
+        padding: 9px;
+        background: var(--red-light);
+        color: var(--red);
+        border: 1.5px solid rgba(224,85,85,0.2);
+        border-radius: 12px;
+        font-size: 0.8rem;
         font-weight: 700;
+        font-family: "Noto Sans KR", sans-serif;
+        cursor: pointer;
+        transition: background 0.18s, border-color 0.18s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
       }
-      .dday-num {
-        font-size: 1rem;
-        font-weight: 900;
+      .btn-cancel-booking:hover {
+        background: #ffdede;
+        border-color: var(--red);
       }
+      /* 취소된 예약에서 버튼 숨김 */
+      .booking-card.cancelled .btn-cancel-booking { display: none; }
 
       /* =============================================
          반려동물 카드
-         - 이미지 클릭 시 동영상 모달 재생
+         - 삭제 버튼 포함
       ============================================= */
       .pet-card {
         background: var(--white);
@@ -249,15 +244,14 @@
         display: flex;
         align-items: center;
         gap: 16px;
-        border: 1px solid rgba(59, 111, 240, 0.06);
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
+        border: 1px solid rgba(59,111,240,0.06);
+        transition: transform 0.2s, box-shadow 0.2s;
         animation: fadeUp 0.5s ease both;
+        position: relative;
       }
       .pet-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 16px 40px rgba(59, 111, 240, 0.13);
+        box-shadow: 0 16px 40px rgba(59,111,240,0.13);
       }
       .pet-emoji {
         width: 56px;
@@ -272,26 +266,10 @@
         overflow: hidden;
         cursor: pointer;
       }
-      .pet-emoji img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .pet-info {
-        flex: 1;
-      }
-      .pet-name {
-        font-size: 1rem;
-        font-weight: 900;
-        color: var(--text);
-        margin-bottom: 6px;
-        letter-spacing: -0.3px;
-      }
-      .pet-tags {
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-      }
+      .pet-emoji img { width: 100%; height: 100%; object-fit: cover; }
+      .pet-info { flex: 1; }
+      .pet-name { font-size: 1rem; font-weight: 900; color: var(--text); margin-bottom: 6px; letter-spacing: -0.3px; }
+      .pet-tags { display: flex; gap: 6px; flex-wrap: wrap; }
       .pet-tag {
         background: var(--bg);
         color: var(--gray);
@@ -299,50 +277,264 @@
         font-weight: 700;
         padding: 3px 10px;
         border-radius: 50px;
-        border: 1px solid rgba(59, 111, 240, 0.08);
+        border: 1px solid rgba(59,111,240,0.08);
       }
-      .pet-tag.gender-male {
-        background: #eef3ff;
-        color: var(--blue);
+      .pet-tag.gender-male { background: #eef3ff; color: var(--blue); }
+      .pet-tag.gender-female { background: #fff0f5; color: #e05599; }
+
+      /* 반려동물 삭제 버튼 (카드 우측 상단) */
+      .btn-delete-pet {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--red-light);
+        color: var(--red);
+        border: none;
+        font-size: 0.8rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.18s, transform 0.15s;
+        font-family: "Noto Sans KR", sans-serif;
       }
-      .pet-tag.gender-female {
-        background: #fff0f5;
-        color: #e05599;
+      .btn-delete-pet:hover {
+        background: #ffdede;
+        transform: scale(1.1);
       }
 
       /* =============================================
-         로그아웃 버튼
+         반려동물 추가 버튼
+         - 반려동물 목록 아래 표시
       ============================================= */
+      .btn-add-pet {
+        width: 100%;
+        padding: 16px;
+        background: var(--white);
+        border: 2px dashed rgba(59,111,240,0.25);
+        border-radius: 20px;
+        color: var(--blue);
+        font-size: 0.9rem;
+        font-weight: 700;
+        font-family: "Noto Sans KR", sans-serif;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .btn-add-pet:hover {
+        background: var(--blue-light);
+        border-color: var(--blue);
+      }
+
+      /* =============================================
+         반려동물 추가 모달
+      ============================================= */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 500;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal-overlay.active { display: flex; }
+      .modal-box {
+        background: var(--white);
+        border-radius: 24px;
+        padding: 32px 28px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+        animation: fadeUp 0.3s ease both;
+      }
+      .modal-title {
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 24px;
+        letter-spacing: -0.5px;
+      }
+      .modal-field {
+        margin-bottom: 16px;
+      }
+      .modal-label {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--gray);
+        margin-bottom: 6px;
+      }
+      .modal-input {
+        width: 100%;
+        padding: 11px 14px;
+        border: 2px solid rgba(59,111,240,0.15);
+        border-radius: 12px;
+        font-size: 0.88rem;
+        font-family: "Noto Sans KR", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .modal-input:focus {
+        border-color: var(--blue);
+        background: var(--white);
+      }
+      /* 성별 선택 라디오 버튼 커스텀 */
+      .gender-select {
+        display: flex;
+        gap: 10px;
+      }
+      .gender-btn {
+        flex: 1;
+        padding: 10px;
+        border-radius: 12px;
+        border: 2px solid rgba(59,111,240,0.15);
+        background: var(--bg);
+        font-size: 0.85rem;
+        font-weight: 700;
+        font-family: "Noto Sans KR", sans-serif;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.18s;
+        color: var(--gray);
+      }
+      .gender-btn.selected-male {
+        border-color: var(--blue);
+        background: var(--blue-light);
+        color: var(--blue);
+      }
+      .gender-btn.selected-female {
+        border-color: #e05599;
+        background: #fff0f5;
+        color: #e05599;
+      }
+      .modal-btns {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .modal-btn {
+        flex: 1;
+        padding: 13px;
+        border-radius: 14px;
+        border: none;
+        font-size: 0.88rem;
+        font-weight: 700;
+        font-family: "Noto Sans KR", sans-serif;
+        cursor: pointer;
+        transition: all 0.18s;
+      }
+      .modal-btn.cancel {
+        background: var(--bg);
+        color: var(--gray);
+      }
+      .modal-btn.cancel:hover { background: #ebebeb; }
+      .modal-btn.confirm {
+        background: var(--blue);
+        color: white;
+        box-shadow: 0 4px 16px rgba(59,111,240,0.3);
+      }
+      .modal-btn.confirm:hover {
+        background: var(--blue-dark);
+        transform: translateY(-1px);
+      }
+
+      /* =============================================
+         예약 취소 확인 모달
+      ============================================= */
+      .confirm-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 500;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .confirm-modal-overlay.active { display: flex; }
+      .confirm-box {
+        background: var(--white);
+        border-radius: 24px;
+        padding: 32px 28px;
+        width: 100%;
+        max-width: 340px;
+        text-align: center;
+        animation: fadeUp 0.3s ease both;
+      }
+      .confirm-emoji { font-size: 2.5rem; margin-bottom: 12px; }
+      .confirm-title { font-size: 1rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+      .confirm-desc { font-size: 0.82rem; color: var(--gray); font-weight: 500; margin-bottom: 24px; line-height: 1.6; }
+      .confirm-btns { display: flex; gap: 10px; }
+      .confirm-btn {
+        flex: 1;
+        padding: 13px;
+        border-radius: 14px;
+        border: none;
+        font-size: 0.88rem;
+        font-weight: 700;
+        font-family: "Noto Sans KR", sans-serif;
+        cursor: pointer;
+        transition: all 0.18s;
+      }
+      .confirm-btn.no { background: var(--bg); color: var(--gray); }
+      .confirm-btn.no:hover { background: #ebebeb; }
+      .confirm-btn.yes { background: var(--red); color: white; box-shadow: 0 4px 16px rgba(224,85,85,0.3); }
+      .confirm-btn.yes:hover { background: #c94444; transform: translateY(-1px); }
+
+      /* 토스트 알림 */
+      .toast {
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: #1a1a2e;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        font-family: "Noto Sans KR", sans-serif;
+        z-index: 999;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* 로그아웃, 홈 링크 */
       .logout-btn {
         width: 100%;
         margin-top: 32px;
         padding: 16px;
         background: var(--white);
-        border: 1.5px solid rgba(59, 111, 240, 0.15);
+        border: 1.5px solid rgba(59,111,240,0.15);
         border-radius: 16px;
         color: var(--gray);
         font-size: 0.9rem;
         font-weight: 700;
         font-family: "Noto Sans KR", sans-serif;
         cursor: pointer;
-        transition:
-          background 0.2s,
-          color 0.2s,
-          border-color 0.2s;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
       }
-      .logout-btn:hover {
-        background: #fff0f0;
-        color: #e05555;
-        border-color: #e05555;
-      }
-
-      /* =============================================
-         홈으로 돌아가기 링크
-      ============================================= */
+      .logout-btn:hover { background: #fff0f0; color: var(--red); border-color: var(--red); }
       .back-home {
         display: flex;
         align-items: center;
@@ -355,30 +547,19 @@
         font-weight: 500;
         transition: color 0.2s;
       }
-      .back-home:hover {
-        color: var(--blue);
-      }
+      .back-home:hover { color: var(--blue); }
 
-      /* =============================================
-         비디오 모달
-         - 기본 상태: display:none (숨김)
-         - .active 클래스 추가 시: display:flex (표시)
-      ============================================= */
+      /* 비디오 모달 */
       .video-modal {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.75);
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.75);
         z-index: 999;
         align-items: center;
         justify-content: center;
       }
-      .video-modal.active {
-        display: flex;
-      }
+      .video-modal.active { display: flex; }
       .video-wrap {
         position: relative;
         background: #000;
@@ -387,15 +568,11 @@
         max-width: 480px;
         width: 90%;
       }
-      .video-wrap video {
-        width: 100%;
-        display: block;
-      }
+      .video-wrap video { width: 100%; display: block; }
       .video-close {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        background: rgba(0, 0, 0, 0.5);
+        top: 10px; right: 10px;
+        background: rgba(0,0,0,0.5);
         color: white;
         border: none;
         border-radius: 50%;
@@ -410,32 +587,17 @@
       }
 
       @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
       @media (max-width: 768px) {
-        nav {
-          padding: 14px 20px;
-        }
-        .page-wrap {
-          padding: 80px 16px 40px;
-        }
-        .profile-card {
-          padding: 24px 20px;
-        }
+        nav { padding: 14px 20px; }
+        .page-wrap { padding: 80px 16px 40px; }
+        .profile-card { padding: 24px 20px; }
       }
     </style>
   </head>
   <body>
-    <!-- =============================================
-         네비게이션 바 - 로고 클릭 시 홈으로 이동
-    ============================================= -->
     <nav>
       <a href="index.html" class="nav-logo">
         <div class="logo-icon">🐾</div>
@@ -444,22 +606,14 @@
     </nav>
 
     <div class="page-wrap">
-      <!-- =============================================
-           프로필 카드
-           - #nicknameEl : localStorage에서 닉네임 주입
-           - #profileImgEl : localStorage에서 프로필 이미지 주입
-           - 이미지 로드 실패 시 🐾 이모지로 대체
-      ============================================= -->
+      <!-- 프로필 카드 -->
       <div class="profile-card">
         <div class="profile-img-wrap">
           <img
             id="profileImgEl"
             src=""
             alt="프로필"
-            onerror="
-              this.style.display = 'none';
-              this.parentElement.innerHTML = '🐾';
-            "
+            onerror="this.style.display='none'; this.parentElement.innerHTML='🐾';"
           />
         </div>
         <div class="profile-info">
@@ -471,90 +625,176 @@
 
       <!-- =============================================
            예정된 예약 목록
-           - D-DAY 카운트다운 뱃지 표시
+           - 각 카드에 예약 취소 버튼 포함
+           - data-booking-id 로 카드 식별
       ============================================= -->
       <div class="section-header">
         <div class="section-title">
           📅 예정된 예약
-          <span class="section-count">2건</span>
+          <span class="section-count" id="bookingCount">2건</span>
         </div>
       </div>
 
-      <div class="booking-card" style="animation-delay: 0.1s">
+      <div class="booking-card" data-booking-id="1" style="animation-delay:0.1s">
         <div class="booking-icon">🏥</div>
         <div class="booking-info">
           <div class="booking-name">하이유 동물병원</div>
           <div class="booking-detail">정기검진 · 2026.04.02 (목) 13:00</div>
+          <span class="cancelled-badge">❌ 취소됨</span>
         </div>
         <div class="dday-badge" data-date="2026-04-02">
           <div class="dday-label">D-DAY</div>
           <div class="dday-num">-</div>
         </div>
+        <!-- 예약 취소 버튼 -->
+        <button class="btn-cancel-booking" data-booking-id="1">
+          🗑️ 예약 취소
+        </button>
       </div>
 
-      <div class="booking-card" style="animation-delay: 0.2s">
+      <div class="booking-card" data-booking-id="2" style="animation-delay:0.2s">
         <div class="booking-icon">✂️</div>
         <div class="booking-info">
           <div class="booking-name">럭키 펫 미용</div>
           <div class="booking-detail">전체 미용 · 2026.04.15 (수) 10:00</div>
+          <span class="cancelled-badge">❌ 취소됨</span>
         </div>
         <div class="dday-badge" data-date="2026-04-15">
           <div class="dday-label">D-DAY</div>
           <div class="dday-num">-</div>
         </div>
+        <button class="btn-cancel-booking" data-booking-id="2">
+          🗑️ 예약 취소
+        </button>
       </div>
 
       <!-- =============================================
            내 반려동물 목록
-           - 이미지(.pet-emoji) 클릭 시 openVideo() 호출
+           - 각 카드에 삭제 버튼 포함
+           - 추가 버튼으로 새 반려동물 등록 가능
       ============================================= -->
       <div class="section-header">
         <div class="section-title">
           🐾 내 반려동물
-          <span class="section-count">2마리</span>
+          <span class="section-count" id="petCount">2마리</span>
         </div>
       </div>
 
-      <!-- 호 카드 -->
-      <div class="pet-card" style="animation-delay: 0.3s">
-        <div class="pet-emoji" data-pet="ho">
-          <img src="images/ho.png" alt="호" />
-        </div>
-        <div class="pet-info">
-          <div class="pet-name">호</div>
-          <div class="pet-tags">
-            <span class="pet-tag">코리안 숏헤어</span>
-            <span class="pet-tag gender-male">♂ 수컷</span>
-            <span class="pet-tag">6살</span>
+      <!-- 반려동물 카드 목록 컨테이너 (동적 카드가 여기에 추가됨) -->
+      <div id="petList">
+        <!-- 호 카드 -->
+        <div class="pet-card" data-pet-id="ho" style="animation-delay:0.3s">
+          <div class="pet-emoji" data-pet="ho">
+            <img src="images/ho.png" alt="호" />
           </div>
-        </div>
-      </div>
-
-      <!-- 쿤 카드 -->
-      <div class="pet-card" style="animation-delay: 0.4s">
-        <div class="pet-emoji" data-pet="kun">
-          <img src="images/kun1.png" alt="쿤" />
-        </div>
-        <div class="pet-info">
-          <div class="pet-name">쿤</div>
-          <div class="pet-tags">
-            <span class="pet-tag">코리안 숏헤어</span>
-            <span class="pet-tag gender-female">♀ 암컷</span>
-            <span class="pet-tag">6살</span>
+          <div class="pet-info">
+            <div class="pet-name">호</div>
+            <div class="pet-tags">
+              <span class="pet-tag">코리안 숏헤어</span>
+              <span class="pet-tag gender-male">♂ 수컷</span>
+              <span class="pet-tag">6살</span>
+            </div>
           </div>
+          <button class="btn-delete-pet" data-pet-id="ho" title="삭제">✕</button>
+        </div>
+
+        <!-- 쿤 카드 -->
+        <div class="pet-card" data-pet-id="kun" style="animation-delay:0.4s">
+          <div class="pet-emoji" data-pet="kun">
+            <img src="images/kun1.png" alt="쿤" />
+          </div>
+          <div class="pet-info">
+            <div class="pet-name">쿤</div>
+            <div class="pet-tags">
+              <span class="pet-tag">코리안 숏헤어</span>
+              <span class="pet-tag gender-female">♀ 암컷</span>
+              <span class="pet-tag">6살</span>
+            </div>
+          </div>
+          <button class="btn-delete-pet" data-pet-id="kun" title="삭제">✕</button>
         </div>
       </div>
 
-      <!-- 로그아웃 버튼 -->
+      <!-- 반려동물 추가 버튼 -->
+      <button class="btn-add-pet" id="btnAddPet">
+        ➕ 반려동물 추가하기
+      </button>
+
       <button class="logout-btn" id="logoutBtn">🚪 로그아웃</button>
-
       <a href="index.html" class="back-home">← 홈으로 돌아가기</a>
     </div>
 
     <!-- =============================================
-         비디오 모달
-         - 배경 클릭 또는 ✕ 버튼으로 닫기
+         예약 취소 확인 모달
+         - 취소 버튼 클릭 시 표시
     ============================================= -->
+    <div class="confirm-modal-overlay" id="cancelModal">
+      <div class="confirm-box">
+        <div class="confirm-emoji">🗑️</div>
+        <div class="confirm-title">예약을 취소할까요?</div>
+        <div class="confirm-desc">
+          취소한 예약은 되돌릴 수 없어요.<br />
+          정말 취소하시겠어요?
+        </div>
+        <div class="confirm-btns">
+          <button class="confirm-btn no" id="cancelModalNo">아니요</button>
+          <button class="confirm-btn yes" id="cancelModalYes">네, 취소할게요</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============================================
+         반려동물 추가 모달
+         - 이름, 품종, 성별, 나이 입력
+    ============================================= -->
+    <div class="modal-overlay" id="addPetModal">
+      <div class="modal-box">
+        <div class="modal-title">🐾 반려동물 추가</div>
+
+        <div class="modal-field">
+          <label class="modal-label">이름 *</label>
+          <input type="text" class="modal-input" id="petNameInput" placeholder="예) 초코, 루나" maxlength="10" />
+        </div>
+
+        <div class="modal-field">
+          <label class="modal-label">품종</label>
+          <input type="text" class="modal-input" id="petBreedInput" placeholder="예) 말티즈, 코리안 숏헤어" maxlength="20" />
+        </div>
+
+        <div class="modal-field">
+          <label class="modal-label">성별</label>
+          <div class="gender-select">
+            <button class="gender-btn" id="genderMale" data-gender="male">♂ 수컷</button>
+            <button class="gender-btn" id="genderFemale" data-gender="female">♀ 암컷</button>
+          </div>
+        </div>
+
+        <div class="modal-field">
+          <label class="modal-label">나이</label>
+          <input type="number" class="modal-input" id="petAgeInput" placeholder="예) 3" min="0" max="30" />
+        </div>
+
+        <div class="modal-btns">
+          <button class="modal-btn cancel" id="addPetCancel">취소</button>
+          <button class="modal-btn confirm" id="addPetConfirm">추가하기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 반려동물 삭제 확인 모달 -->
+    <div class="confirm-modal-overlay" id="deletePetModal">
+      <div class="confirm-box">
+        <div class="confirm-emoji">🐾</div>
+        <div class="confirm-title">반려동물을 삭제할까요?</div>
+        <div class="confirm-desc" id="deletePetDesc">삭제하면 목록에서 제거돼요.</div>
+        <div class="confirm-btns">
+          <button class="confirm-btn no" id="deletePetNo">아니요</button>
+          <button class="confirm-btn yes" id="deletePetYes">네, 삭제할게요</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 비디오 모달 -->
     <div class="video-modal" id="videoModal">
       <div class="video-wrap">
         <button class="video-close" id="videoClose">✕</button>
@@ -562,10 +802,12 @@
       </div>
     </div>
 
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- 토스트 알림 -->
+    <div class="toast" id="toast"></div>
 
-    <!-- 카카오 SDK (로그아웃에 필요) -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- 카카오 SDK -->
     <script
       src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
       integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
@@ -574,7 +816,7 @@
 
     <script>
       // =============================================
-      // 반려동물별 동영상 경로 매핑
+      // 동영상 경로 매핑
       // =============================================
       var petVideos = {
         ho: "images/hogguk.mp4",
@@ -582,115 +824,301 @@
       };
 
       // =============================================
+      // 현재 처리 중인 ID 저장 변수
+      // - 모달에서 "확인" 눌렀을 때 어떤 카드인지 식별
+      // =============================================
+      var pendingCancelId = null;  // 취소 대기 중인 예약 ID
+      var pendingDeleteId = null;  // 삭제 대기 중인 반려동물 ID
+      var selectedGender = "";     // 추가 모달에서 선택한 성별
+
+      // =============================================
+      // 토스트 알림 표시 함수
+      // @param msg - 표시할 메시지
+      // @param duration - 표시 시간(ms), 기본 2000
+      // =============================================
+      function showToast(msg, duration) {
+        duration = duration || 2000;
+        var $toast = $("#toast");
+        $toast.text(msg).addClass("show");
+        setTimeout(function () {
+          $toast.removeClass("show");
+        }, duration);
+      }
+
+      // =============================================
       // 동영상 모달 열기
-      // @param petName - 'ho' 또는 'kun'
-      // 1. video 태그 src 교체 (직접 설정 방식이 가장 안정적)
-      // 2. .active 클래스 추가로 모달 표시
-      // 3. 자동재생 시도 (차단돼도 수동 재생 가능)
       // =============================================
       function openVideo(petName) {
-        var $modal = $("#videoModal");
+        if (!petVideos[petName]) return;
         var $player = $("#videoPlayer");
-
-        $player.attr("src", petVideos[petName]); // jQuery로 src 속성 설정
-        $modal.addClass("active"); // 모달 표시
-
-        $player[0].play().catch(function (e) {
-          console.log("자동재생이 차단됐어요. 재생 버튼을 눌러주세요.", e);
-        });
+        $player.attr("src", petVideos[petName]);
+        $("#videoModal").addClass("active");
+        $player[0].play().catch(function () {});
       }
 
       // =============================================
       // 동영상 모달 닫기
-      // 1. 재생 멈춤 + 처음으로 되감기
-      // 2. .active 클래스 제거로 모달 숨김
       // =============================================
       function closeVideo() {
-        var $modal = $("#videoModal");
         var $player = $("#videoPlayer");
-
         $player[0].pause();
         $player[0].currentTime = 0;
-        $modal.removeClass("active");
+        $("#videoModal").removeClass("active");
       }
 
       // =============================================
-      // DOM 준비 완료 후 실행되는 초기화 코드
+      // D-DAY 계산 함수
+      // @param dateStr - "YYYY-MM-DD" 형식
+      // @return 남은 일수 (양수: 미래, 0: 오늘, 음수: 과거)
+      // =============================================
+      function calcDday(dateStr) {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var target = new Date(dateStr);
+        return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+      }
+
+      // =============================================
+      // 예약 건수 뱃지 업데이트
+      // - 취소되지 않은 카드만 카운트
+      // =============================================
+      function updateBookingCount() {
+        var count = $(".booking-card:not(.cancelled)").length;
+        $("#bookingCount").text(count + "건");
+      }
+
+      // =============================================
+      // 반려동물 마릿수 뱃지 업데이트
+      // =============================================
+      function updatePetCount() {
+        var count = $(".pet-card").length;
+        $("#petCount").text(count + "마리");
+      }
+
+      // =============================================
+      // 반려동물 추가 모달 초기화 (입력값 비우기)
+      // =============================================
+      function resetAddPetModal() {
+        $("#petNameInput").val("");
+        $("#petBreedInput").val("");
+        $("#petAgeInput").val("");
+        selectedGender = "";
+        $(".gender-btn").removeClass("selected-male selected-female");
+      }
+
+      // =============================================
+      // 반려동물 카드 HTML 생성 함수
+      // @param pet - { id, name, breed, gender, age } 객체
+      // @return 카드 HTML 문자열
+      // =============================================
+      function createPetCardHtml(pet) {
+        var genderClass = pet.gender === "male" ? "gender-male" : "gender-female";
+        var genderText = pet.gender === "male" ? "♂ 수컷" : "♀ 암컷";
+        var ageText = pet.age ? pet.age + "살" : "";
+        var breedText = pet.breed || "품종 미상";
+
+        return [
+          '<div class="pet-card" data-pet-id="' + pet.id + '">',
+            '<div class="pet-emoji" style="font-size:2rem;">🐾</div>',
+            '<div class="pet-info">',
+              '<div class="pet-name">' + pet.name + '</div>',
+              '<div class="pet-tags">',
+                '<span class="pet-tag">' + breedText + '</span>',
+                (pet.gender ? '<span class="pet-tag ' + genderClass + '">' + genderText + '</span>' : ""),
+                (ageText ? '<span class="pet-tag">' + ageText + '</span>' : ""),
+              '</div>',
+            '</div>',
+            '<button class="btn-delete-pet" data-pet-id="' + pet.id + '" title="삭제">✕</button>',
+          '</div>'
+        ].join("");
+      }
+
+      // =============================================
+      // jQuery DOM 준비 완료 후 실행
       // =============================================
       $(document).ready(function () {
-        function calcDday(dateStr) {
-          var today = new Date();
-          today.setHours(0, 0, 0, 0);
-          var target = new Date(dateStr);
-          var diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
-          return diff;
-        }
-        $(".dday-badge").each(function () {
-          var dateStr = $(this).data("date");
-          console.log('dateStr:', dateStr);
-          var days = calcDday(dateStr);
-          console.log('days:', days);
-
-          var $numE1 = $(this).find(".dday-num");
-
-          if (days > 0) {
-            $numE1.text(days);
-          } else if (days === 0) {
-            $numE1.text("D-Day");
-          } else {
-            $numE1.text("D+" + Math.abs(days));
-          }
-        });
 
         // --- 로그인 상태 확인 ---
-        // localStorage에 isLoggedIn이 없으면 로그인 페이지로 강제 이동
         if (!localStorage.getItem("isLoggedIn")) {
           window.location.href = "login.html";
-          return; // 이후 코드 실행 방지
+          return;
         }
 
         // --- 사용자 정보 표시 ---
-        // localStorage에서 닉네임과 프로필 이미지를 꺼내 화면에 반영
         var nickname = localStorage.getItem("nickname") || "사용자";
         var profileImg = localStorage.getItem("profileImg");
-
         $("#nicknameEl").text(nickname);
         if (profileImg) {
           $("#profileImgEl").attr("src", profileImg);
         }
 
-        // --- 반려동물 이미지 클릭 → 동영상 모달 ---
-        // data-pet 속성값('ho' 또는 'kun')을 읽어 해당 동영상 재생
-        $(".pet-emoji").on("click", function () {
+        // --- D-DAY 계산 후 뱃지에 표시 ---
+        $(".dday-badge").each(function () {
+          var days = calcDday($(this).data("date"));
+          var $num = $(this).find(".dday-num");
+          if (days > 0)       $num.text(days);
+          else if (days === 0) $num.text("D-Day");
+          else                 $num.text("D+" + Math.abs(days));
+        });
+
+        // =============================================
+        // 예약 취소 버튼 클릭 (jQuery 이벤트 위임)
+        // - 동적으로 추가된 버튼에도 작동하도록 위임
+        // =============================================
+        $(document).on("click", ".btn-cancel-booking", function () {
+          // 이미 취소된 카드는 버튼이 숨겨지므로 이 코드는 실행 안 됨
+          pendingCancelId = $(this).data("booking-id");
+          $("#cancelModal").addClass("active");
+        });
+
+        // 취소 모달 - 아니요 버튼
+        $("#cancelModalNo").on("click", function () {
+          pendingCancelId = null;
+          $("#cancelModal").removeClass("active");
+        });
+
+        // 취소 모달 - 네, 취소할게요 버튼
+        $("#cancelModalYes").on("click", function () {
+          if (!pendingCancelId) return;
+
+          // data-booking-id 속성으로 해당 카드를 찾아서 .cancelled 클래스 추가
+          var $card = $('[data-booking-id="' + pendingCancelId + '"]');
+          $card.addClass("cancelled");
+
+          $("#cancelModal").removeClass("active");
+          pendingCancelId = null;
+
+          updateBookingCount(); // 건수 뱃지 업데이트
+          showToast("✅ 예약이 취소되었어요.");
+        });
+
+        // =============================================
+        // 반려동물 추가 버튼 클릭 → 모달 열기
+        // =============================================
+        $("#btnAddPet").on("click", function () {
+          resetAddPetModal();
+          $("#addPetModal").addClass("active");
+          setTimeout(function () { $("#petNameInput").focus(); }, 300);
+        });
+
+        // 추가 모달 - 취소 버튼
+        $("#addPetCancel").on("click", function () {
+          $("#addPetModal").removeClass("active");
+        });
+
+        // 추가 모달 - 성별 버튼 선택
+        $(".gender-btn").on("click", function () {
+          $(".gender-btn").removeClass("selected-male selected-female");
+          selectedGender = $(this).data("gender");
+          if (selectedGender === "male") $(this).addClass("selected-male");
+          else $(this).addClass("selected-female");
+        });
+
+        // 추가 모달 - 추가하기 버튼
+        $("#addPetConfirm").on("click", function () {
+          var name = $("#petNameInput").val().trim();
+          if (!name) {
+            $("#petNameInput").focus();
+            showToast("⚠️ 이름을 입력해주세요.");
+            return;
+          }
+
+          // 새 반려동물 데이터 객체 생성
+          var newPet = {
+            id: "pet_" + Date.now(), // 고유 ID (timestamp 활용)
+            name: name,
+            breed: $("#petBreedInput").val().trim(),
+            gender: selectedGender,
+            age: $("#petAgeInput").val().trim(),
+          };
+
+          // 카드 HTML 생성 후 목록에 추가
+          var cardHtml = createPetCardHtml(newPet);
+          $("#petList").append(cardHtml);
+
+          $("#addPetModal").removeClass("active");
+          updatePetCount();
+          showToast("🐾 " + name + " 가(이) 추가되었어요!");
+        });
+
+        // =============================================
+        // 반려동물 삭제 버튼 클릭 (이벤트 위임)
+        // - 나중에 추가된 카드의 버튼도 작동
+        // =============================================
+        $(document).on("click", ".btn-delete-pet", function (e) {
+          e.stopPropagation(); // 카드 클릭 이벤트와 분리
+          pendingDeleteId = $(this).data("pet-id");
+
+          // 삭제할 반려동물 이름 가져와서 모달에 표시
+          var petName = $(this).closest(".pet-card").find(".pet-name").text();
+          $("#deletePetDesc").text('"' + petName + '" 를 목록에서 삭제할게요.');
+          $("#deletePetModal").addClass("active");
+        });
+
+        // 삭제 모달 - 아니요 버튼
+        $("#deletePetNo").on("click", function () {
+          pendingDeleteId = null;
+          $("#deletePetModal").removeClass("active");
+        });
+
+        // 삭제 모달 - 네, 삭제할게요 버튼
+        $("#deletePetYes").on("click", function () {
+          if (!pendingDeleteId) return;
+
+          // data-pet-id 속성으로 카드를 찾아서 애니메이션 후 제거
+          var $card = $('[data-pet-id="' + pendingDeleteId + '"].pet-card');
+          var petName = $card.find(".pet-name").text();
+
+          // 부드러운 사라짐 애니메이션 후 DOM에서 제거
+          $card.css({ transition: "all 0.3s", opacity: 0, transform: "translateX(20px)" });
+          setTimeout(function () {
+            $card.remove();
+            updatePetCount();
+          }, 300);
+
+          $("#deletePetModal").removeClass("active");
+          pendingDeleteId = null;
+          showToast("🗑️ " + petName + " 가(이) 삭제되었어요.");
+        });
+
+        // =============================================
+        // 반려동물 이미지 클릭 → 동영상 재생
+        // =============================================
+        $(document).on("click", ".pet-emoji", function () {
           var petName = $(this).data("pet");
-          openVideo(petName);
+          if (petName) openVideo(petName);
         });
 
-        // --- 모달 닫기 버튼 ---
-        $("#videoClose").on("click", function () {
-          closeVideo();
+        // 비디오 모달 닫기
+        $("#videoClose").on("click", closeVideo);
+        $("#videoModal").on("click", closeVideo);
+        $(".video-wrap").on("click", function (e) { e.stopPropagation(); });
+
+        // 모달 배경 클릭 시 닫기
+        $("#addPetModal").on("click", function (e) {
+          if ($(e.target).is("#addPetModal")) $("#addPetModal").removeClass("active");
+        });
+        $("#cancelModal").on("click", function (e) {
+          if ($(e.target).is("#cancelModal")) {
+            pendingCancelId = null;
+            $("#cancelModal").removeClass("active");
+          }
+        });
+        $("#deletePetModal").on("click", function (e) {
+          if ($(e.target).is("#deletePetModal")) {
+            pendingDeleteId = null;
+            $("#deletePetModal").removeClass("active");
+          }
         });
 
-        // --- 모달 배경 클릭 → 닫기 ---
-        $("#videoModal").on("click", function () {
-          closeVideo();
-        });
-
-        // --- 모달 내부 클릭은 닫기 이벤트 전파 차단 ---
-        $(".video-wrap").on("click", function (e) {
-          e.stopPropagation();
-        });
-
-        // --- 로그아웃 버튼 ---
+        // 로그아웃
         $("#logoutBtn").on("click", function () {
-          // localStorage 로그인 정보 삭제
           localStorage.removeItem("isLoggedIn");
           localStorage.removeItem("nickname");
           localStorage.removeItem("profileImg");
-
-          // 로그아웃 후 login.html로 돌아오게 설정
           window.location.href = "login.html";
         });
+
       });
     </script>
   </body>
