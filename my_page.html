@@ -9,7 +9,13 @@
       rel="stylesheet"
     />
     <style>
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       :root {
         --blue: #3b6ff0;
@@ -34,7 +40,9 @@
       ============================================= */
       nav {
         position: fixed;
-        top: 0; left: 0; right: 0;
+        top: 0;
+        left: 0;
+        right: 0;
         z-index: 100;
         display: flex;
         align-items: center;
@@ -55,10 +63,13 @@
         text-decoration: none;
       }
       .logo-icon {
-        width: 40px; height: 40px;
+        width: 40px;
+        height: 40px;
         border-radius: 12px;
         background: var(--blue);
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 1.3rem;
       }
 
@@ -87,44 +98,77 @@
         animation: fadeUp 0.5s ease both;
       }
       .profile-img-wrap {
-        width: 72px; height: 72px;
+        width: 72px;
+        height: 72px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.2);
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 2rem;
         flex-shrink: 0;
         overflow: hidden;
         border: 3px solid rgba(255, 255, 255, 0.4);
       }
-      .profile-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-      .profile-info { flex: 1; }
-      .profile-greeting { font-size: 0.82rem; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 4px; }
-      .profile-name { font-size: 1.4rem; font-weight: 900; color: white; letter-spacing: -0.5px; }
+      .profile-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .profile-info {
+        flex: 1;
+      }
+      .profile-greeting {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .profile-name {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: white;
+        letter-spacing: -0.5px;
+      }
       .profile-badge {
         margin-top: 8px;
-        display: inline-flex; align-items: center; gap: 5px;
-        background: rgba(255,255,255,0.15);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 50px;
         padding: 4px 12px;
-        font-size: 0.75rem; font-weight: 700; color: white;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: white;
       }
 
       /* =============================================
          섹션 헤더 (제목 + 건수 뱃지)
       ============================================= */
       .section-header {
-        display: flex; align-items: center; justify-content: space-between;
-        margin-bottom: 16px; margin-top: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        margin-top: 32px;
       }
       .section-title {
-        font-size: 1.05rem; font-weight: 900; color: var(--text);
+        font-size: 1.05rem;
+        font-weight: 900;
+        color: var(--text);
         letter-spacing: -0.5px;
-        display: flex; align-items: center; gap: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
       .section-count {
-        background: var(--blue-light); color: var(--blue);
-        font-size: 0.72rem; font-weight: 700;
-        padding: 2px 10px; border-radius: 50px;
+        background: var(--blue-light);
+        color: var(--blue);
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 2px 10px;
+        border-radius: 50px;
       }
 
       /* =============================================
@@ -133,30 +177,64 @@
       ============================================= */
       .booking-card {
         background: var(--white);
-        border-radius: 20px; padding: 20px 22px; margin-bottom: 12px;
+        border-radius: 20px;
+        padding: 20px 22px;
+        margin-bottom: 12px;
         box-shadow: var(--card-shadow);
-        display: flex; align-items: center; gap: 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
         border: 1px solid rgba(59, 111, 240, 0.06);
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
         animation: fadeUp 0.5s ease both;
       }
-      .booking-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(59,111,240,0.13); }
+      .booking-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(59, 111, 240, 0.13);
+      }
       .booking-icon {
-        width: 48px; height: 48px; border-radius: 14px;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
         background: var(--blue-light);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.4rem; flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        flex-shrink: 0;
       }
-      .booking-info { flex: 1; }
-      .booking-name { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-      .booking-detail { font-size: 0.78rem; color: var(--gray); font-weight: 500; }
+      .booking-info {
+        flex: 1;
+      }
+      .booking-name {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+      .booking-detail {
+        font-size: 0.78rem;
+        color: var(--gray);
+        font-weight: 500;
+      }
       .dday-badge {
-        background: var(--blue); color: white;
-        border-radius: 10px; padding: 6px 14px;
-        text-align: center; flex-shrink: 0;
+        background: var(--blue);
+        color: white;
+        border-radius: 10px;
+        padding: 6px 14px;
+        text-align: center;
+        flex-shrink: 0;
       }
-      .dday-label { font-size: 0.6rem; font-weight: 700; }
-      .dday-num { font-size: 1rem; font-weight: 900; }
+      .dday-label {
+        font-size: 0.6rem;
+        font-weight: 700;
+      }
+      .dday-num {
+        font-size: 1rem;
+        font-weight: 900;
+      }
 
       /* =============================================
          반려동물 카드
@@ -164,59 +242,122 @@
       ============================================= */
       .pet-card {
         background: var(--white);
-        border-radius: 20px; padding: 20px 22px; margin-bottom: 12px;
+        border-radius: 20px;
+        padding: 20px 22px;
+        margin-bottom: 12px;
         box-shadow: var(--card-shadow);
-        display: flex; align-items: center; gap: 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
         border: 1px solid rgba(59, 111, 240, 0.06);
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
         animation: fadeUp 0.5s ease both;
       }
-      .pet-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(59,111,240,0.13); }
-      .pet-emoji {
-        width: 56px; height: 56px;
-        border-radius: 16px; background: var(--blue-light);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.8rem; flex-shrink: 0;
-        overflow: hidden; cursor: pointer;
+      .pet-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 40px rgba(59, 111, 240, 0.13);
       }
-      .pet-emoji img { width: 100%; height: 100%; object-fit: cover; }
-      .pet-info { flex: 1; }
-      .pet-name { font-size: 1rem; font-weight: 900; color: var(--text); margin-bottom: 6px; letter-spacing: -0.3px; }
-      .pet-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+      .pet-emoji {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: var(--blue-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        flex-shrink: 0;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .pet-emoji img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .pet-info {
+        flex: 1;
+      }
+      .pet-name {
+        font-size: 1rem;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 6px;
+        letter-spacing: -0.3px;
+      }
+      .pet-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
       .pet-tag {
-        background: var(--bg); color: var(--gray);
-        font-size: 0.72rem; font-weight: 700;
-        padding: 3px 10px; border-radius: 50px;
+        background: var(--bg);
+        color: var(--gray);
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 50px;
         border: 1px solid rgba(59, 111, 240, 0.08);
       }
-      .pet-tag.gender-male { background: #eef3ff; color: var(--blue); }
-      .pet-tag.gender-female { background: #fff0f5; color: #e05599; }
+      .pet-tag.gender-male {
+        background: #eef3ff;
+        color: var(--blue);
+      }
+      .pet-tag.gender-female {
+        background: #fff0f5;
+        color: #e05599;
+      }
 
       /* =============================================
          로그아웃 버튼
       ============================================= */
       .logout-btn {
-        width: 100%; margin-top: 32px; padding: 16px;
+        width: 100%;
+        margin-top: 32px;
+        padding: 16px;
         background: var(--white);
         border: 1.5px solid rgba(59, 111, 240, 0.15);
         border-radius: 16px;
-        color: var(--gray); font-size: 0.9rem; font-weight: 700;
+        color: var(--gray);
+        font-size: 0.9rem;
+        font-weight: 700;
         font-family: "Noto Sans KR", sans-serif;
         cursor: pointer;
-        transition: background 0.2s, color 0.2s, border-color 0.2s;
-        display: flex; align-items: center; justify-content: center; gap: 8px;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          border-color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
       }
-      .logout-btn:hover { background: #fff0f0; color: #e05555; border-color: #e05555; }
+      .logout-btn:hover {
+        background: #fff0f0;
+        color: #e05555;
+        border-color: #e05555;
+      }
 
       /* =============================================
          홈으로 돌아가기 링크
       ============================================= */
       .back-home {
-        display: flex; align-items: center; justify-content: center; gap: 6px;
-        margin-top: 16px; font-size: 0.82rem; color: var(--gray);
-        text-decoration: none; font-weight: 500; transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 16px;
+        font-size: 0.82rem;
+        color: var(--gray);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
       }
-      .back-home:hover { color: var(--blue); }
+      .back-home:hover {
+        color: var(--blue);
+      }
 
       /* =============================================
          비디오 모달
@@ -226,39 +367,72 @@
       .video-modal {
         display: none;
         position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         background: rgba(0, 0, 0, 0.75);
         z-index: 999;
-        align-items: center; justify-content: center;
+        align-items: center;
+        justify-content: center;
       }
-      .video-modal.active { display: flex; }
+      .video-modal.active {
+        display: flex;
+      }
       .video-wrap {
         position: relative;
-        background: #000; border-radius: 16px;
-        overflow: hidden; max-width: 480px; width: 90%;
+        background: #000;
+        border-radius: 16px;
+        overflow: hidden;
+        max-width: 480px;
+        width: 90%;
       }
-      .video-wrap video { width: 100%; display: block; }
+      .video-wrap video {
+        width: 100%;
+        display: block;
+      }
       .video-close {
-        position: absolute; top: 10px; right: 10px;
-        background: rgba(0,0,0,0.5); color: white;
-        border: none; border-radius: 50%;
-        width: 32px; height: 32px; font-size: 1rem;
-        cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
       }
 
       @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @media (max-width: 768px) {
-        nav { padding: 14px 20px; }
-        .page-wrap { padding: 80px 16px 40px; }
-        .profile-card { padding: 24px 20px; }
+        nav {
+          padding: 14px 20px;
+        }
+        .page-wrap {
+          padding: 80px 16px 40px;
+        }
+        .profile-card {
+          padding: 24px 20px;
+        }
       }
     </style>
   </head>
   <body>
-
     <!-- =============================================
          네비게이션 바 - 로고 클릭 시 홈으로 이동
     ============================================= -->
@@ -270,7 +444,6 @@
     </nav>
 
     <div class="page-wrap">
-
       <!-- =============================================
            프로필 카드
            - #nicknameEl : localStorage에서 닉네임 주입
@@ -283,7 +456,10 @@
             id="profileImgEl"
             src=""
             alt="프로필"
-            onerror="this.style.display='none'; this.parentElement.innerHTML='🐾';"
+            onerror="
+              this.style.display = 'none';
+              this.parentElement.innerHTML = '🐾';
+            "
           />
         </div>
         <div class="profile-info">
@@ -310,7 +486,7 @@
           <div class="booking-name">하이유 동물병원</div>
           <div class="booking-detail">정기검진 · 2026.04.02 (목) 13:00</div>
         </div>
-        <div class="dday-badge" data-data="2026-04-02">
+        <div class="dday-badge" data-date="" ="2026-04-02">
           <div class="dday-label">D-DAY</div>
           <div class="dday-num">-</div>
         </div>
@@ -322,7 +498,7 @@
           <div class="booking-name">럭키 펫 미용</div>
           <div class="booking-detail">전체 미용 · 2026.04.15 (수) 10:00</div>
         </div>
-        <div class="dday-badge" data-data="2026-04-15">
+        <div class="dday-badge" data-date="" ="2026-04-15">
           <div class="dday-label">D-DAY</div>
           <div class="dday-num">-</div>
         </div>
@@ -401,8 +577,8 @@
       // 반려동물별 동영상 경로 매핑
       // =============================================
       var petVideos = {
-        ho:  'images/hogguk.mp4',
-        kun: 'images/kungguk.mp4'
+        ho: "images/hogguk.mp4",
+        kun: "images/kungguk.mp4",
       };
 
       // =============================================
@@ -413,14 +589,14 @@
       // 3. 자동재생 시도 (차단돼도 수동 재생 가능)
       // =============================================
       function openVideo(petName) {
-        var $modal  = $('#videoModal');
-        var $player = $('#videoPlayer');
+        var $modal = $("#videoModal");
+        var $player = $("#videoPlayer");
 
-        $player.attr('src', petVideos[petName]); // jQuery로 src 속성 설정
-        $modal.addClass('active');               // 모달 표시
+        $player.attr("src", petVideos[petName]); // jQuery로 src 속성 설정
+        $modal.addClass("active"); // 모달 표시
 
-        $player[0].play().catch(function(e) {
-          console.log('자동재생이 차단됐어요. 재생 버튼을 눌러주세요.', e);
+        $player[0].play().catch(function (e) {
+          console.log("자동재생이 차단됐어요. 재생 버튼을 눌러주세요.", e);
         });
       }
 
@@ -430,96 +606,89 @@
       // 2. .active 클래스 제거로 모달 숨김
       // =============================================
       function closeVideo() {
-        var $modal  = $('#videoModal');
-        var $player = $('#videoPlayer');
+        var $modal = $("#videoModal");
+        var $player = $("#videoPlayer");
 
         $player[0].pause();
         $player[0].currentTime = 0;
-        $modal.removeClass('active');
+        $modal.removeClass("active");
       }
 
       // =============================================
       // DOM 준비 완료 후 실행되는 초기화 코드
       // =============================================
       $(document).ready(function () {
-
-        function calcDday(dateStr){
+        function calcDday(dateStr) {
           var today = new Date();
           today.setHours(0, 0, 0, 0);
           var target = new Date(dateStr);
-          var diff = Math.ceil((target - today) / (1000*60*60*24));
+          var diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
           return diff;
         }
-        $('.dday-badge').each(function(){
-          var dateStr = $(this).data('date');
+        $(".dday-badge").each(function () {
+          var dateStr = $(this).data("date");
           var days = calcDday(dateStr);
 
-          var $numE1 = $(this).find('.dday-num');
+          var $numE1 = $(this).find(".dday-num");
 
-          if(days > 0){
+          if (days > 0) {
             $numE1.text(days);
-          }else if(days === 0){
-            $numE1.text('D-Day');
-          }else{
-            $numE1.text('D+' + Math.abs(days));
+          } else if (days === 0) {
+            $numE1.text("D-Day");
+          } else {
+            $numE1.text("D+" + Math.abs(days));
           }
         });
 
         // --- 로그인 상태 확인 ---
         // localStorage에 isLoggedIn이 없으면 로그인 페이지로 강제 이동
-        if (!localStorage.getItem('isLoggedIn')) {
-          window.location.href = 'login.html';
+        if (!localStorage.getItem("isLoggedIn")) {
+          window.location.href = "login.html";
           return; // 이후 코드 실행 방지
         }
 
         // --- 사용자 정보 표시 ---
         // localStorage에서 닉네임과 프로필 이미지를 꺼내 화면에 반영
-        var nickname   = localStorage.getItem('nickname') || '사용자';
-        var profileImg = localStorage.getItem('profileImg');
+        var nickname = localStorage.getItem("nickname") || "사용자";
+        var profileImg = localStorage.getItem("profileImg");
 
-        $('#nicknameEl').text(nickname);
+        $("#nicknameEl").text(nickname);
         if (profileImg) {
-          $('#profileImgEl').attr('src', profileImg);
+          $("#profileImgEl").attr("src", profileImg);
         }
 
         // --- 반려동물 이미지 클릭 → 동영상 모달 ---
         // data-pet 속성값('ho' 또는 'kun')을 읽어 해당 동영상 재생
-        $('.pet-emoji').on('click', function () {
-          var petName = $(this).data('pet');
+        $(".pet-emoji").on("click", function () {
+          var petName = $(this).data("pet");
           openVideo(petName);
         });
 
         // --- 모달 닫기 버튼 ---
-        $('#videoClose').on('click', function () {
+        $("#videoClose").on("click", function () {
           closeVideo();
         });
 
         // --- 모달 배경 클릭 → 닫기 ---
-        $('#videoModal').on('click', function () {
+        $("#videoModal").on("click", function () {
           closeVideo();
         });
 
         // --- 모달 내부 클릭은 닫기 이벤트 전파 차단 ---
-        $('.video-wrap').on('click', function (e) {
+        $(".video-wrap").on("click", function (e) {
           e.stopPropagation();
         });
 
         // --- 로그아웃 버튼 ---
-      $('#logoutBtn').on('click', function () {
-  // localStorage 로그인 정보 삭제
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('nickname');
-  localStorage.removeItem('profileImg');
+        $("#logoutBtn").on("click", function () {
+          // localStorage 로그인 정보 삭제
+          localStorage.removeItem("isLoggedIn");
+          localStorage.removeItem("nickname");
+          localStorage.removeItem("profileImg");
 
-  // 카카오 계정 세션까지 완전히 끊기
-  // 로그아웃 후 login.html로 돌아오게 설정
-  var logoutUrl = "https://kauth.kakao.com/oauth/logout"
-    + "?client_id=3ca77f9ef133289839ab3de450e2643f"
-    + "&logout_redirect_uri=https://todoc-app.netlify.app/login.html";
-
-  window.location.href = logoutUrl;
-});
-
+          // 로그아웃 후 login.html로 돌아오게 설정
+          window.location.href = "login.html";
+        });
       });
     </script>
   </body>
