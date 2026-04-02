@@ -225,6 +225,13 @@ nav {
 .btn-store.google:hover {
   box-shadow: 0 10px 32px rgba(59, 111, 240, 0.35);
 }
+.btn-store.apple {
+  background: #1a1a2e;
+  box-shadow: 0 4px 20px rgba(26, 26, 46, 0.25);
+}
+.btn-store.apple:hover {
+  box-shadow: 0 10px 32px rgba(26, 26, 46, 0.35);
+}
 .btn-store .store-icon {
   font-size: 1.4rem;
 }
