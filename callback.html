@@ -27,12 +27,12 @@
 
         // ① Netlify Function에 인가 코드 전달 → 액세스 토큰 받기
         $.ajax({
-          url: "/.netlify/functions/kakao-token", // Netlify Function 주소
+          url: "/.netlify/functions/kakao_token", // Netlify Function 주소
           type: "POST",
           contentType: "application/json",
           data: JSON.stringify({
             code: code,
-            redirectUri: "https://todoc-app.netlify.app/", // 본인 주소로 변경
+            redirectUri: "https://todoc-app.netlify.app/callback.html", // 본인 주소로 변경
           }),
           success: function (res) {
             var accessToken = res.accessToken;
