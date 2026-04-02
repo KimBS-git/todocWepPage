@@ -15,77 +15,57 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
-      // =============================================
-      // 카카오 로그인 콜백 처리 페이지
-      //
-      // 흐름:
-      //   1. login.html에서 Kakao.Auth.authorize() 호출
-      //   2. 카카오가 이 페이지로 ?code=XXX 를 붙여 리다이렉트
-      //   3. SDK가 인가 코드를 감지해 자동으로 토큰 교환 처리
-      //      → $.ajax로 토큰 서버 직접 호출 불필요 (CORS 차단 없음!)
-      //   4. Kakao.Auth.getAccessToken()으로 토큰 확인
-      //   5. Kakao.API.request()로 사용자 정보 요청
-      //   6. localStorage 저장 후 메인 페이지로 이동
-      // =============================================
-
-      // 카카오 SDK 초기화 (JavaScript 앱 키)
-      Kakao.init("3ca77f9ef133289839ab3de450e2643f");
-
-      // =============================================
-      // SDK가 URL의 ?code= 파라미터를 자동으로 처리하기 때문에
-      // 잠시 대기 후 토큰이 세팅됐는지 확인
-      // =============================================
       $(document).ready(function () {
-        var accessToken = Kakao.Auth.getAccessToken();
+  var params = new URLSearchParams(window.location.search);
+  var code = params.get("code");
 
-        if (accessToken) {
-          // 토큰이 이미 있으면 바로 사용자 정보 요청
-          requestUserInfo();
-        } else {
-          // 토큰이 없으면 → URL에서 인가 코드 직접 확인
-          var params = new URLSearchParams(window.location.search);
-          var code = params.get("code");
+  if (!code) {
+    alert("로그인 정보가 없어요. 다시 시도해주세요.");
+    window.location.href = "login.html";
+    return;
+  }
 
-          if (code) {
-            requestUserInfo();
-          } else {
-            alert("로그인 정보가 없습니다. 다시 시도해주세요");
-            window.location.href = "login.html";
-          }
-        }
+  // ① Netlify Function에 인가 코드 전달 → 액세스 토큰 받기
+  $.ajax({
+    url: "/.netlify/functions/kakao-token",  // Netlify Function 주소
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      code: code,
+      redirectUri: "https://todoc.netlify.app/callback.html"  // 본인 주소로 변경
+    }),
+    success: function (res) {
+      var accessToken = res.accessToken;
 
-        function requestUserInfo() {
-          Kakao.API.request({
-            url: "/v2/user/me",
-          })
-            .then(function (user) {
-              var nickname = user.kakao_account?.profile?.nickname || "사용자";
-              var profileImg =
-                user.kakao_account?.profile?.profile_image_url || "";
+      // ② 액세스 토큰으로 카카오 사용자 정보 요청
+      $.ajax({
+        url: "https://kapi.kakao.com/v2/user/me",
+        type: "GET",
+        headers: {
+          Authorization: "Bearer " + accessToken
+        },
+        success: function (user) {
+          var nickname = user.kakao_account?.profile?.nickname || "사용자";
+          var profileImg = user.kakao_account?.profile?.profile_image_url || "";
 
-              localStorage.setItem("isLoggedIn", "true");
-              localStorage.setItem("nickname", nickname);
-              localStorage.setItem("profileImg", profileImg);
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("nickname", nickname);
+          localStorage.setItem("profileImg", profileImg);
 
-              window.location.href = "index.html";
-            })
-            .catch(function (error) {
-              console.error("사용자 정보 요청 실패:", error);
-              alert("다시 시도해주세요.");
-              window.location.href = "login.html";
-            });
-        }
-
-        // =============================================
-        // 폴백: SDK 토큰 세팅 실패 시
-        // jQuery Ajax로 kapi.kakao.com 사용자 정보 직접 요청
-        // (kauth가 아닌 kapi는 CORS 허용됨)
-        // =============================================
-        function requestUserInfoWithCode(code) {
-          alert("로그인에 실패했습니다. 다시 시도해주세요");
           window.location.href = "index.html";
+        },
+        error: function () {
+          alert("사용자 정보를 가져오지 못했어요.");
+          window.location.href = "login.html";
         }
       });
+    },
+    error: function () {
+      alert("로그인에 실패했어요. 다시 시도해주세요.");
+      window.location.href = "login.html";
+    }
+  });
+});
     </script>
   </body>
 </html>

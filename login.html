@@ -247,24 +247,34 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
-      // 카카오 SDK 초기화 (JavaScript 앱 키)
-      Kakao.init("3ca77f9ef133289839ab3de450e2643f");
+     $("#kakaoLoginBtn").on("click", function () {
+  Kakao.Auth.login({
+    success: function (authObj) {
+      // 로그인 성공 → 바로 사용자 정보 요청
+      Kakao.API.request({
+        url: "/v2/user/me",
+      })
+      .then(function (user) {
+        var nickname = user.kakao_account?.profile?.nickname || "사용자";
+        var profileImg = user.kakao_account?.profile?.profile_image_url || "";
 
-      $(document).ready(function () {
-        $("#kakaoLoginBtn").on("click", function () {
-          // =============================================
-          // Kakao.Auth.authorize()
-          // - SDK v2의 공식 로그인 방법
-          // - 카카오 로그인 페이지로 이동 후
-          //   인가 코드를 redirectUri로 전달
-          // - 토큰 발급은 callback.html에서 SDK로 처리
-          // =============================================
-          Kakao.Auth.authorize({
-            redirectUri:
-              "https://kimbs-git.github.io/todocWepPage/callback.html",
-          });
-        });
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("nickname", nickname);
+        localStorage.setItem("profileImg", profileImg);
+
+        window.location.href = "index.html";
+      })
+      .catch(function (error) {
+        console.error("사용자 정보 요청 실패:", error);
+        alert("다시 시도해주세요.");
       });
+    },
+    fail: function (error) {
+      console.error("로그인 실패:", error);
+      alert("로그인에 실패했어요. 다시 시도해주세요.");
+    }
+  });
+});
     </script>
   </body>
 </html>
