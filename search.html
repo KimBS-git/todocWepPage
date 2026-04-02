@@ -35,8 +35,6 @@
         flex-direction: column;
         overflow: hidden;
       }
-
-      /* 네비게이션 바 */
       nav {
         position: relative;
         z-index: 200;
@@ -69,8 +67,6 @@
         justify-content: center;
         font-size: 1rem;
       }
-
-      /* 검색 패널 */
       .search-panel {
         background: var(--white);
         padding: 16px 20px 14px;
@@ -138,8 +134,6 @@
         background: var(--blue-dark);
         transform: translateY(-1px);
       }
-
-      /* 필터 태그 */
       .filter-tags {
         display: flex;
         gap: 8px;
@@ -175,15 +169,11 @@
         border-color: var(--blue);
         box-shadow: 0 4px 12px rgba(59, 111, 240, 0.25);
       }
-
-      /* 지도 영역 */
       #map {
         flex: 1;
         width: 100%;
         position: relative;
       }
-
-      /* 내 위치 버튼 */
       .btn-my-location {
         position: absolute;
         bottom: 100px;
@@ -208,8 +198,6 @@
         transform: scale(1.08);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       }
-
-      /* 병원 정보 바텀 시트 */
       .hospital-sheet {
         position: absolute;
         bottom: 0;
@@ -313,8 +301,6 @@
       .sheet-btn.secondary:hover {
         background: #dce8ff;
       }
-
-      /* 로딩 오버레이 */
       .loading-overlay {
         position: absolute;
         top: 0;
@@ -350,8 +336,6 @@
           transform: rotate(360deg);
         }
       }
-
-      /* 검색 결과 없음 */
       .no-result {
         position: absolute;
         top: 50%;
@@ -373,7 +357,6 @@
         color: var(--gray);
         font-weight: 500;
       }
-
       @media (max-width: 768px) {
         nav {
           padding: 12px 16px;
@@ -385,7 +368,6 @@
     </style>
   </head>
   <body>
-    <!-- 네비게이션 -->
     <nav>
       <a href="index.html" class="nav-logo">
         <div class="logo-icon">🐾</div>
@@ -396,14 +378,13 @@
       >
     </nav>
 
-    <!-- 검색 패널 -->
     <div class="search-panel">
       <div class="search-bar">
         <div class="search-input-wrap">
           <input
             type="text"
             id="searchInput"
-            placeholder="병원 이름으로 검색..."
+            placeholder="병원 이름 또는 지역으로 검색..."
           />
           <span class="search-icon">🔍</span>
         </div>
@@ -420,25 +401,20 @@
       </div>
     </div>
 
-    <!-- 지도 영역 -->
     <div id="map">
       <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
         <div class="loading-text">지도를 불러오는 중...</div>
       </div>
-
       <div class="no-result" id="noResult">
         <div class="no-result-emoji">🔍</div>
         <div class="no-result-text">
           검색 결과가 없어요.<br />다른 키워드로 시도해보세요!
         </div>
       </div>
-
       <button class="btn-my-location" id="btnMyLocation" title="내 위치로 이동">
         📍
       </button>
-
-      <!-- 병원 정보 바텀 시트 -->
       <div class="hospital-sheet" id="hospitalSheet">
         <div class="sheet-handle"></div>
         <div class="sheet-hospital-name" id="sheetName">병원명</div>
@@ -457,18 +433,17 @@
       </div>
     </div>
 
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- =============================================
-         네이버 지도 SDK
-         ncpClientId 에 본인의 네이버 클라우드 Client ID를 넣으세요.
-         네이버 클라우드 콘솔 → AI·Application Service
-         → Maps → Application → Client ID
+         카카오맵 SDK
+         appkey: 카카오 개발자 콘솔 → 앱 키 → JavaScript 키
+         플랫폼 → Web → 사이트 도메인에 GitHub Pages 주소 등록 필요
+           예) https://kimbs-git.github.io
     ============================================= -->
     <script
       type="text/javascript"
-      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=796etec0gm"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3ca77f9ef133289839ab3de450e2643f&libraries=services"
     ></script>
 
     <script>
@@ -533,54 +508,33 @@
         },
       ];
 
-      // =============================================
-      // 전역 변수
-      // =============================================
-      var map = null; // 네이버 지도 객체
-      var markers = []; // 현재 표시된 마커 배열
-      var activeFilter = "all"; // 현재 선택된 필터
+      var map = null;
+      var markers = [];
+      var activeFilter = "all";
 
-      // =============================================
-      // 지도 초기화
-      // - 카카오: new kakao.maps.Map(container, options)
-      // - 네이버: new naver.maps.Map("map", options)
-      //   → 첫 번째 인자로 요소 ID 문자열을 바로 넣을 수 있어요
-      // =============================================
       function initMap() {
-        map = new naver.maps.Map("map", {
-          center: new naver.maps.LatLng(37.5665, 127.045),
-          zoom: 14, // 카카오 level 4 와 비슷한 수준
-        });
-
+        var container = document.getElementById("map");
+        var options = {
+          center: new kakao.maps.LatLng(37.5665, 127.045),
+          level: 4,
+        };
+        map = new kakao.maps.Map(container, options);
         $("#loadingOverlay").addClass("hidden");
         showMarkers(dummyHospitals);
-
-        // 지도 클릭 시 바텀 시트 닫기
-        // - 카카오: kakao.maps.event.addListener(map, "click", fn)
-        // - 네이버: naver.maps.Event.addListener(map, "click", fn)
-        naver.maps.Event.addListener(map, "click", function () {
+        kakao.maps.event.addListener(map, "click", function () {
           closeSheet();
         });
       }
 
-      // =============================================
-      // 마커 전부 제거
-      // 네이버도 카카오처럼 marker.setMap(null) 로 제거해요
-      // =============================================
       function clearMarkers() {
-        markers.forEach(function (marker) {
-          marker.setMap(null);
+        markers.forEach(function (m) {
+          m.setMap(null);
         });
         markers = [];
       }
 
-      // =============================================
-      // 병원 목록을 받아 네이버 지도에 마커로 표시
-      // 카카오의 CustomOverlay → 네이버의 Marker + icon.content 로 교체
-      // =============================================
       function showMarkers(hospitals) {
         clearMarkers();
-
         if (hospitals.length === 0) {
           $("#noResult").addClass("show");
           return;
@@ -588,74 +542,62 @@
         $("#noResult").removeClass("show");
 
         hospitals.forEach(function (hospital) {
-          var position = new naver.maps.LatLng(hospital.lat, hospital.lng);
+          var position = new kakao.maps.LatLng(hospital.lat, hospital.lng);
           var markerColor = hospital.is24h ? "#f5a623" : "#3b6ff0";
+          var markerContent = [
+            '<div style="background:' +
+              markerColor +
+              ";color:white;padding:5px 10px;",
+            "border-radius:20px;font-size:0.72rem;font-weight:700;",
+            "font-family:'Noto Sans KR',sans-serif;white-space:nowrap;",
+            'box-shadow:0 4px 12px rgba(0,0,0,0.2);cursor:pointer;border:2px solid white;">',
+            "🏥 " + hospital.name,
+            "</div>",
+          ].join("");
 
-          // =============================================
-          // 네이버 HTML 마커 생성
-          // icon.content 에 HTML 문자열을 넣으면 커스텀 마커가 돼요
-          // anchor: 마커 HTML의 어느 지점이 좌표에 닿을지 설정
-          //   → new naver.maps.Point(x, y)
-          //   → x: 왼쪽에서 몇 px, y: 위에서 몇 px
-          // =============================================
-          var marker = new naver.maps.Marker({
+          var customOverlay = new kakao.maps.CustomOverlay({
             position: position,
-            map: map,
-            icon: {
-              content: [
-                '<div style="',
-                "background:" + markerColor + ";",
-                "color:white;",
-                "padding:5px 10px;",
-                "border-radius:20px;",
-                "font-size:0.72rem;",
-                "font-weight:700;",
-                "font-family:'Noto Sans KR',sans-serif;",
-                "white-space:nowrap;",
-                "box-shadow:0 4px 12px rgba(0,0,0,0.2);",
-                "cursor:pointer;",
-                "border:2px solid white;",
-                '">',
-                "🏥 " + hospital.name,
-                "</div>",
-              ].join(""),
-              // 마커 HTML 박스의 왼쪽 위 꼭짓점이 좌표에 오도록 설정
-              anchor: new naver.maps.Point(0, 30),
-            },
+            content: markerContent,
+            yAnchor: 1,
           });
-
-          markers.push(marker);
-
-          // =============================================
-          // 마커 클릭 이벤트
-          // - 카카오: kakao.maps.event.addListener(marker, "click", fn)
-          // - 네이버: naver.maps.Event.addListener(marker, "click", fn)
-          // 클로저로 hospital 변수를 캡처해서 각 마커가 자기 병원 정보를 기억해요
-          // =============================================
-          (function (h, m) {
-            naver.maps.Event.addListener(m, "click", function () {
-              openSheet(h);
-              // 클릭한 마커 위치로 지도 부드럽게 이동
-              map.panTo(new naver.maps.LatLng(h.lat, h.lng));
-            });
-          })(hospital, marker);
+          customOverlay.setMap(map);
+          markers.push(customOverlay);
         });
+
+        // 마커 클릭 이벤트 - DOM에 붙은 후 등록
+        setTimeout(function () {
+          var markerEls = document.querySelectorAll(
+            '[style*="border-radius:20px"]',
+          );
+          hospitals.forEach(function (hospital, i) {
+            if (markerEls[i]) {
+              (function (h, el) {
+                $(el)
+                  .off("click")
+                  .on("click", function (e) {
+                    e.stopPropagation();
+                    openSheet(h);
+                    map.panTo(new kakao.maps.LatLng(h.lat, h.lng));
+                  });
+              })(hospital, markerEls[i]);
+            }
+          });
+        }, 300);
       }
 
-      // =============================================
-      // 바텀 시트 열기 - 병원 정보 주입 후 위로 슬라이드
-      // =============================================
       function openSheet(hospital) {
         $("#sheetName").text(hospital.name);
         $("#sheetAddress").text("📍 " + hospital.address);
         $("#sheetHours").text(hospital.hours);
         $("#sheetPhone").text(hospital.phone);
-
         var tagHtml = "";
         hospital.tags.forEach(function (tag) {
-          var cls = "";
-          if (tag === "24시간" || tag === "응급") cls = "orange";
-          else if (tag === "주말진료") cls = "green";
+          var cls =
+            tag === "24시간" || tag === "응급"
+              ? "orange"
+              : tag === "주말진료"
+                ? "green"
+                : "";
           tagHtml += '<span class="sheet-tag ' + cls + '">' + tag + "</span>";
         });
         if (hospital.isWeekend && !hospital.tags.includes("주말진료")) {
@@ -665,42 +607,29 @@
         $("#hospitalSheet").addClass("show");
       }
 
-      // =============================================
-      // 바텀 시트 닫기
-      // =============================================
       function closeSheet() {
         $("#hospitalSheet").removeClass("show");
       }
 
       // =============================================
-      // 더미 데이터 내 이름 검색
-      // 검색어를 포함한 병원만 필터링해서 마커 표시
+      // 더미 데이터 내 이름 + 주소 검색
       // =============================================
       function searchByName(keyword) {
         keyword = keyword.trim();
         if (!keyword) {
-          // 검색어 없으면 현재 필터 기준으로 전체 표시
           applyFilter(activeFilter);
           return;
         }
-
         var filtered = dummyHospitals.filter(function (h) {
           return h.name.includes(keyword) || h.address.includes(keyword);
         });
-
         showMarkers(filtered);
         closeSheet();
-
-        // 검색 결과의 첫 번째 병원으로 지도 이동
         if (filtered.length > 0) {
-          map.panTo(new naver.maps.LatLng(filtered[0].lat, filtered[0].lng));
+          map.panTo(new kakao.maps.LatLng(filtered[0].lat, filtered[0].lng));
         }
       }
 
-      // =============================================
-      // 필터 적용
-      // 선택된 태그에 따라 더미 데이터를 걸러서 마커 표시
-      // =============================================
       function applyFilter(filter) {
         var filtered = dummyHospitals.filter(function (h) {
           if (filter === "all") return true;
@@ -716,37 +645,27 @@
         closeSheet();
       }
 
-      // =============================================
-      // 내 위치 버튼 - Geolocation API
-      // 브라우저가 제공하는 기능이라 카카오/네이버 상관없이 동일해요
-      // =============================================
       function moveToMyLocation() {
         if (!navigator.geolocation) {
           alert("이 브라우저는 위치 서비스를 지원하지 않아요.");
           return;
         }
         $("#btnMyLocation").text("⏳");
-
         navigator.geolocation.getCurrentPosition(
           function (pos) {
-            var lat = pos.coords.latitude;
-            var lng = pos.coords.longitude;
-            var myLatLng = new naver.maps.LatLng(lat, lng);
-
+            var myLatLng = new kakao.maps.LatLng(
+              pos.coords.latitude,
+              pos.coords.longitude,
+            );
             map.panTo(myLatLng);
-            map.setZoom(14);
+            map.setLevel(4);
             $("#btnMyLocation").text("📍");
-
-            // 내 위치 마커 표시
-            new naver.maps.Marker({
+            new kakao.maps.CustomOverlay({
               position: myLatLng,
-              map: map,
-              icon: {
-                content:
-                  "<div style=\"background:#ff4757;color:white;padding:5px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;border:2px solid white;box-shadow:0 4px 12px rgba(0,0,0,0.2);\">📍 내 위치</div>",
-                anchor: new naver.maps.Point(0, 30),
-              },
-            });
+              content:
+                "<div style=\"background:#ff4757;color:white;padding:5px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;font-family:'Noto Sans KR',sans-serif;border:2px solid white;box-shadow:0 4px 12px rgba(0,0,0,0.2);\">📍 내 위치</div>",
+              yAnchor: 1,
+            }).setMap(map);
           },
           function () {
             alert("위치를 가져올 수 없어요. 위치 권한을 허용해주세요.");
@@ -755,50 +674,35 @@
         );
       }
 
-      // =============================================
-      // jQuery 이벤트 바인딩
-      // =============================================
       $(document).ready(function () {
-        // =============================================
-        // 네이버 지도 SDK 로드 완료 확인 후 지도 초기화
-        // SDK가 비동기 로드되므로 naver.maps 객체가 생길 때까지 기다려요
-        // =============================================
-        function waitForNaver() {
-          if (window.naver && window.naver.maps) {
-            initMap();
+        function waitForKakao() {
+          if (window.kakao && window.kakao.maps) {
+            kakao.maps.load(initMap);
           } else {
-            setTimeout(waitForNaver, 100);
+            setTimeout(waitForKakao, 100);
           }
         }
-        waitForNaver();
+        waitForKakao();
 
-        // 검색 버튼 클릭
         $("#searchBtn").on("click", function () {
           searchByName($("#searchInput").val());
         });
 
-        // 엔터키로 검색
         $("#searchInput").on("keypress", function (e) {
           if (e.key === "Enter") searchByName($(this).val());
         });
 
-        // 필터 태그 클릭
         $(".filter-tags").on("click", ".filter-tag", function () {
           $(".filter-tag").removeClass("active");
           $(this).addClass("active");
           activeFilter = $(this).data("filter");
-
-          // 필터 바뀌면 검색어도 초기화
           $("#searchInput").val("");
           applyFilter(activeFilter);
         });
 
-        // 바텀 시트 닫기 버튼
         $("#sheetCloseBtn").on("click", function () {
           closeSheet();
         });
-
-        // 내 위치 버튼
         $("#btnMyLocation").on("click", function () {
           moveToMyLocation();
         });
