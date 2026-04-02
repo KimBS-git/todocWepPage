@@ -505,23 +505,20 @@
         });
 
         // --- 로그아웃 버튼 ---
-        $('#logoutBtn').on('click', function () {
-          Kakao.init('3ca77f9ef133289839ab3de450e2643f');
+      $('#logoutBtn').on('click', function () {
+  // localStorage 로그인 정보 삭제
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('nickname');
+  localStorage.removeItem('profileImg');
 
-          // localStorage 로그인 정보 모두 삭제
-          localStorage.removeItem('isLoggedIn');
-          localStorage.removeItem('nickname');
-          localStorage.removeItem('profileImg');
+  // 카카오 계정 세션까지 완전히 끊기
+  // 로그아웃 후 login.html로 돌아오게 설정
+  var logoutUrl = "https://kauth.kakao.com/oauth/logout"
+    + "?client_id=3ca77f9ef133289839ab3de450e2643f"
+    + "&logout_redirect_uri=https://todoc-app.netlify.app/login.html";
 
-          // 카카오 세션이 살아있으면 카카오 로그아웃도 함께 처리
-          if (Kakao.Auth.getAccessToken()) {
-            Kakao.Auth.logout(function () {
-              window.location.href = 'login.html';
-            });
-          } else {
-            window.location.href = 'login.html';
-          }
-        });
+  window.location.href = logoutUrl;
+});
 
       });
     </script>
