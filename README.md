@@ -86,7 +86,7 @@ TODOCWEB/
 | 프론트엔드 | HTML5, CSS3, Vanilla JavaScript |
 | 스타일 | CSS Variables, Flexbox, Grid |
 | 라이브러리 | jQuery 3.7.1 |
-| 지도 | 네이버 지도 API (Naver Maps JavaScript API v3) |
+| 지도 | 카카오맵 API (Kakao Maps JavaScript API)
 | 인증 | 카카오 로그인 (Kakao JavaScript SDK v2) |
 | 상태 관리 | localStorage (로그인 상태, 사용자 정보) |
 | 호스팅 | GitHub Pages |
